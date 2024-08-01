@@ -24,9 +24,6 @@ The system follows a multi-module development approach:
 3. **Prediction Module** (Daily):
     - Provides daily predictions of environmental variables based on the processed data and updated model.
 
-## Authors
-- Ernst Wit
-- Francisco Richter
 
 ## Getting Started
 To get started with EPIMOS:
@@ -49,6 +46,3 @@ Contributions are welcome! Please feel free to submit issues and pull requests t
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-## Acknowledgments
-- Thanks to the contributors and supporters who make this project possible.
-- Special thanks to the environmental data community for providing valuable resources and datasets.
