@@ -25,21 +25,6 @@ The system follows a multi-module development approach:
     - Provides daily predictions of environmental variables based on the processed data and updated model.
 
 
-## Getting Started
-To get started with EPIMOS:
-
-1. **Clone the Repository**:
-    ```sh
-    git clone https://github.com/YOUR-USERNAME/EPIMOS.git
-    cd EPIMOS
-    ```
-
-2. **Install Dependencies**:
-    Ensure you have the necessary dependencies installed. This may include statistical and data processing libraries such as R, Python, etc.
-
-3. **Run the Modules**:
-    Follow the instructions in the respective module directories to preprocess data, update the model, and run predictions.
-
 ## Contributing
 Contributions are welcome! Please feel free to submit issues and pull requests to improve the system.
 
