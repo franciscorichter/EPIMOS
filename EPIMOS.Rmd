@@ -95,6 +95,12 @@ process_and_append_data <- function(response_data, parameter, location_name, dat
   return(data_frame)
 }
 
+# Function to preprocess data (convert negative values to NA)
+preprocess_data <- function(data_frame) {
+  data_frame[data_frame < 0] <- NA
+  return(data_frame)
+}
+
 # Function to process locations data
 process_locations <- function(domain) {
   locations_data <- fetch_locations_data(domain = domain)
@@ -141,7 +147,7 @@ process_locations <- function(domain) {
 }
 
 # Function to impute missing data
-impute_missing_data <- function(data_frame, method = "lm") {
+impute_missing_data <- function(data_frame, method = "glm", glm_family = gaussian()) {
   imputed_data <- data_frame  # Initialize imputed data
   
   for (i in seq_len(ncol(data_frame))) {
@@ -149,33 +155,42 @@ impute_missing_data <- function(data_frame, method = "lm") {
     if (sum(mss) > 0) {
       message("Imputing missing data for column: ", colnames(data_frame)[i])
       
+      available_vars <- apply(data_frame[!mss,], 2, function(x) sum(is.na(x)) == 0)
+      if (sum(available_vars) == 0) {
+        message("No available variables to predict column: ", colnames(data_frame)[i])
+        next
+      }
+      fml <- as.formula(paste0("`", colnames(data_frame)[i], "` ~ `", paste0(names(available_vars), collapse = "` + `"), "`"))
+      
       if (method == "lm") {
-        # Fit linear model
-        available_vars <- apply(data_frame[!mss,], 2, function(x) sum(is.na(x)) == 0)
-        if (sum(available_vars) == 0) {
-          message("No available variables to predict column: ", colnames(data_frame)[i])
-          next
-        }
-        fml <- as.formula(paste0("`", colnames(data_frame)[i], "` ~ `", paste0(names(available_vars), collapse = "` + `"), "`"))
         model <- tryCatch({
           lm(fml, data = data_frame[!mss,])
         }, error = function(e) {
           message("Model fitting failed for column: ", colnames(data_frame)[i])
           return(NULL)
         })
-        
-        if (!is.null(model)) {
-          # Predict missing values
-          imputed_data[mss, i] <- predict(model, newdata = data_frame[mss,])
-        } else {
-          message("Skipping imputation for column: ", colnames(data_frame)[i])
-        }
-        
+      } else if (method == "glm") {
+        model <- tryCatch({
+          glm(fml, data = data_frame[!mss,], family = glm_family)
+        }, error = function(e) {
+          message("GLM fitting failed for column: ", colnames(data_frame)[i])
+          return(NULL)
+        })
       } else {
-        stop("Currently, only 'lm' method is supported.")
+        stop("Unsupported method. Use 'lm' or 'glm'.")
+      }
+      
+      if (!is.null(model)) {
+        # Predict missing values
+        imputed_data[mss, i] <- predict(model, newdata = data_frame[mss,])
+      } else {
+        message("Skipping imputation for column: ", colnames(data_frame)[i])
       }
     }
   }
+  
+  # Post-imputation correction: Replace negative values with NA
+  imputed_data[imputed_data < 0] <- NA
   
   return(imputed_data)
 }
@@ -193,6 +208,9 @@ mask_data_for_validation <- function(data_frame, prop_missing = 0.1) {
   
   return(list(masked_data = masked_data, original_indices = mask_indices))
 }
+
+# --- Training Phase ---
+training_start_time <- Sys.time()
 
 # Fetch all locations for the surfacewater domain
 q_locations_df <- process_locations("surfacewater")
@@ -222,10 +240,6 @@ if (!is.null(q_locations_df)) {
   }
 }
 
-# Display the combined Q data
-message("Combined Q Data:")
-print(q_data)
-
 # Reshape the data into wide format
 longitudinal_data <- q_data %>%
   select(data, Location, Q) %>%
@@ -244,16 +258,24 @@ dta <- as.data.frame(dat[,-1])
 # Remove leading/trailing whitespace and convert to numeric for all columns
 dta[] <- lapply(dta, function(x) as.numeric(trimws(x)))
 
-# Check the structure again to confirm the conversion
-str(dta)
+# Preprocess data: Treat negative values as NA
+dta <- preprocess_data(dta)
+
+training_end_time <- Sys.time()
+training_duration <- training_end_time - training_start_time
+message("Training Phase Duration: ", training_duration, " seconds")
+
+# --- Imputation Phase ---
+imputation_start_time <- Sys.time()
 
 # Mask known data for validation (e.g., mask 10% of the data)
 validation_data <- mask_data_for_validation(dta, prop_missing = 0.1)
 dta_masked <- validation_data$masked_data
 original_indices <- validation_data$original_indices
 
-# Impute the masked data
-dta_imputed <- impute_missing_data(dta_masked, method = "lm")
+# Impute the masked data using GLM as the default method
+# You can specify 'lm' if you prefer Linear Modeling
+dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaussian())
 
 # Initialize a list to store the assessment metrics
 assessment_metrics <- list()
@@ -297,8 +319,334 @@ for (i in seq_len(nl)) {
 # Combine all assessment metrics into one data frame
 assessment_df <- do.call(rbind, assessment_metrics)
 
+imputation_end_time <- Sys.time()
+imputation_duration <- imputation_end_time - imputation_start_time
+message("Imputation Phase Duration: ", imputation_duration, " seconds")
+
 # Display the assessment table
 print(assessment_df)
 
-```
+# Display total durations
+message("Total Training Time: ", training_duration, " seconds")
+message("Total Imputation Time: ", imputation_duration, " seconds")
 
+assessment_df_gam = assessment_df
+```
+## LM 
+
+```{r lm}
+# Load required libraries
+library(httr)
+library(jsonlite)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(SparseTSCGM)
+
+# Function to fetch locations data
+fetch_locations_data <- function(domain) {
+  base_url <- "http://www.oasi.ti.ch/web/rest/locations"
+  params <- list(domain = domain)
+  
+  response <- GET(base_url, query = params)
+  
+  if (response$status_code == 200) {
+    return(fromJSON(content(response, as = "text", encoding = "UTF-8"), flatten = TRUE))
+  } else {
+    warning("Failed to get locations data. Status code:", response$status_code)
+    return(NULL)
+  }
+}
+
+# Function to fetch available parameters for a location
+fetch_parameters_data <- function(domain, location_code) {
+  base_url <- "http://www.oasi.ti.ch/web/rest/parameters"
+  params <- list(domain = domain, location = location_code)
+  
+  response <- GET(base_url, query = params)
+  
+  if (response$status_code == 200) {
+    return(fromJSON(content(response, as = "text", encoding = "UTF-8"), flatten = TRUE))
+  } else {
+    warning("Failed to get parameters data. Status code:", response$status_code)
+    return(NULL)
+  }
+}
+
+# Function to fetch time series data
+fetch_time_series_data <- function(domain, location_code, parameter, resolution, from_date, to_date) {
+  base_url <- "http://www.oasi.ti.ch/web/rest/measure/csv"
+  params <- list(
+    domain = domain,
+    location = location_code,
+    parameter = parameter,
+    resolution = resolution,
+    from = from_date,
+    to = to_date
+  )
+  
+  response <- GET(base_url, query = params)
+  
+  if (response$status_code == 200) {
+    return(content(response, as = "text", encoding = "UTF-8"))
+  } else {
+    warning("Failed to get data. Status code:", response$status_code)
+    return(NULL)
+  }
+}
+
+# Function to process and append data
+process_and_append_data <- function(response_data, parameter, location_name, data_frame) {
+  data_lines <- strsplit(response_data, "\n")[[1]]
+  data_lines <- data_lines[!grepl("^#", data_lines)]
+  
+  if (length(data_lines) > 0) {
+    data_clean <- paste(data_lines, collapse = "\n")
+    data_df <- read.csv(text = data_clean, sep = ";", header = TRUE)
+    
+    if ("data" %in% names(data_df) && parameter %in% names(data_df)) {
+      data_df$data <- as.Date(data_df$data, format="%d.%m.%Y %H:%M")
+      data_df[[parameter]] <- as.numeric(data_df[[parameter]])
+      data_df$Location <- location_name
+      data_frame <- rbind(data_frame, data_df)
+    }
+  }
+  return(data_frame)
+}
+
+# Function to preprocess data (convert negative values to NA)
+preprocess_data <- function(data_frame) {
+  data_frame[data_frame < 0] <- NA
+  return(data_frame)
+}
+
+# Function to process locations data
+process_locations <- function(domain) {
+  locations_data <- fetch_locations_data(domain = domain)
+  
+  # Initialize lists to hold locations data
+  q_locations <- list()
+  other_locations <- list()
+  
+  # Process each location to check for Q parameter availability
+  if (!is.null(locations_data)) {
+    for (i in seq_len(nrow(locations_data))) {
+      location_code <- locations_data$code[i]
+      location_name <- locations_data$name[i]
+      
+      # Fetch parameters data
+      parameters_data <- fetch_parameters_data(domain = domain, location_code = location_code)
+      
+      if (!is.null(parameters_data)) {
+        # Check if Q parameter is available
+        if (any(parameters_data$code == "Q")) {
+          q_locations <- append(q_locations, list(locations_data[i, ]))
+        } else {
+          other_locations <- append(other_locations, list(locations_data[i, ]))
+        }
+      }
+    }
+    
+    # Convert lists to data frames
+    q_locations_df <- bind_rows(q_locations)
+    other_locations_df <- bind_rows(other_locations)
+    
+    # Display the separated data
+    message("Locations with Q Parameter:")
+    print(q_locations_df)
+    
+    message("Other Locations:")
+    print(other_locations_df)
+    
+    return(q_locations_df)
+  } else {
+    message("Failed to fetch location data.")
+    return(NULL)
+  }
+}
+
+# Function to impute missing data
+impute_missing_data <- function(data_frame, method = "glm", glm_family = gaussian()) {
+  imputed_data <- data_frame  # Initialize imputed data
+  
+  for (i in seq_len(ncol(data_frame))) {
+    mss <- is.na(data_frame[,i])
+    if (sum(mss) > 0) {
+      message("Imputing missing data for column: ", colnames(data_frame)[i])
+      
+      available_vars <- apply(data_frame[!mss,], 2, function(x) sum(is.na(x)) == 0)
+      if (sum(available_vars) == 0) {
+        message("No available variables to predict column: ", colnames(data_frame)[i])
+        next
+      }
+      fml <- as.formula(paste0("`", colnames(data_frame)[i], "` ~ `", paste0(names(available_vars), collapse = "` + `"), "`"))
+      
+      if (method == "lm") {
+        model <- tryCatch({
+          lm(fml, data = data_frame[!mss,])
+        }, error = function(e) {
+          message("Model fitting failed for column: ", colnames(data_frame)[i])
+          return(NULL)
+        })
+      } else if (method == "glm") {
+        model <- tryCatch({
+          glm(fml, data = data_frame[!mss,], family = glm_family)
+        }, error = function(e) {
+          message("GLM fitting failed for column: ", colnames(data_frame)[i])
+          return(NULL)
+        })
+      } else {
+        stop("Unsupported method. Use 'lm' or 'glm'.")
+      }
+      
+      if (!is.null(model)) {
+        # Predict missing values
+        imputed_data[mss, i] <- predict(model, newdata = data_frame[mss,])
+      } else {
+        message("Skipping imputation for column: ", colnames(data_frame)[i])
+      }
+    }
+  }
+  
+  # Post-imputation correction: Replace negative values with NA
+  imputed_data[imputed_data < 0] <- NA
+  
+  return(imputed_data)
+}
+
+# Function to mask data for validation
+mask_data_for_validation <- function(data_frame, prop_missing = 0.1) {
+  set.seed(42)  # For reproducibility
+  masked_data <- data_frame
+  known_indices <- which(!is.na(masked_data), arr.ind = TRUE)
+  n_to_mask <- round(prop_missing * nrow(known_indices))
+  
+  # Randomly select indices to mask
+  mask_indices <- known_indices[sample(nrow(known_indices), n_to_mask), ]
+  masked_data[mask_indices] <- NA
+  
+  return(list(masked_data = masked_data, original_indices = mask_indices))
+}
+
+# --- Training Phase ---
+training_start_time <- Sys.time()
+
+# Fetch all locations for the surfacewater domain
+q_locations_df <- process_locations("surfacewater")
+
+# Initialize data frames to hold time series data
+q_data <- data.frame()
+
+# Fetch time series data for locations with Q parameter
+if (!is.null(q_locations_df)) {
+  for (i in seq_len(nrow(q_locations_df))) {
+    location_code <- q_locations_df$code[i]
+    location_name <- q_locations_df$name[i]
+    
+    # Fetch Q parameter data
+    q_data_response <- fetch_time_series_data(
+      domain = "surfacewater", 
+      location_code = location_code, 
+      parameter = "Q", 
+      resolution = "d", 
+      from_date = "2021-01-19", 
+      to_date = "2024-07-18"
+    )
+    
+    if (!is.null(q_data_response)) {
+      q_data <- process_and_append_data(q_data_response, "Q", location_name, q_data)
+    }
+  }
+}
+
+# Reshape the data into wide format
+longitudinal_data <- q_data %>%
+  select(data, Location, Q) %>%
+  pivot_wider(names_from = Location, values_from = Q) %>%
+  arrange(data)
+
+# Convert the data to a matrix format for further analysis
+dat <- as.matrix(longitudinal_data)
+loc <- colnames(dat[,-1])
+tms <- unique(dat[,1])
+nl <- length(loc)
+nt <- length(tms)
+
+dta <- as.data.frame(dat[,-1])
+
+# Remove leading/trailing whitespace and convert to numeric for all columns
+dta[] <- lapply(dta, function(x) as.numeric(trimws(x)))
+
+# Preprocess data: Treat negative values as NA
+dta <- preprocess_data(dta)
+
+training_end_time <- Sys.time()
+training_duration <- training_end_time - training_start_time
+message("Training Phase Duration: ", training_duration, " seconds")
+
+# --- Imputation Phase ---
+imputation_start_time <- Sys.time()
+
+# Mask known data for validation (e.g., mask 10% of the data)
+validation_data <- mask_data_for_validation(dta, prop_missing = 0.1)
+dta_masked <- validation_data$masked_data
+original_indices <- validation_data$original_indices
+
+# Impute the masked data using GLM as the default method
+# You can specify 'lm' if you prefer Linear Modeling
+dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gaussian())
+
+# Initialize a list to store the assessment metrics
+assessment_metrics <- list()
+
+# Compare imputed values with original values for each location
+for (i in seq_len(nl)) {
+  loc_indices <- original_indices[original_indices[, 2] == i, ]
+  comparison <- data.frame(
+    Original = dta[loc_indices],
+    Imputed = dta_imputed[loc_indices]
+  )
+  
+  # Calculate the Mean Absolute Error (MAE) for this location
+  mae <- mean(abs(comparison$Original - comparison$Imputed), na.rm = TRUE)
+  message("Mean Absolute Error (MAE) for Location ", loc[i], ": ", round(mae, 4))
+  
+  # Store the assessment metrics
+  assessment_metrics[[i]] <- data.frame(Location = loc[i], MAE = mae)
+  
+  # Prepare the data for plotting imputed values
+  mss <- is.na(dta[,i])
+  plot_data <- data.frame(
+    Index = seq_along(dta_imputed[,i]),
+    Value = dta_imputed[,i],
+    Missing = as.factor(mss)
+  )
+  
+  # Create the plot with the actual location name
+  g2 <- ggplot(plot_data, aes(x = Index, y = Value, color = Missing)) +
+    geom_point() +
+    labs(
+      title = paste("Imputed Data for Location:", loc[i]),  # Use actual location name
+      x = "Index",
+      y = "Value"
+    ) +
+    scale_color_manual(values = c("black", "red"), labels = c("Observed", "Imputed")) +
+    theme_minimal()
+  print(g2)
+}
+
+# Combine all assessment metrics into one data frame
+assessment_df <- do.call(rbind, assessment_metrics)
+
+imputation_end_time <- Sys.time()
+imputation_duration <- imputation_end_time - imputation_start_time
+message("Imputation Phase Duration: ", imputation_duration, " seconds")
+
+# Display the assessment table
+print(assessment_df)
+
+# Display total durations
+message("Total Training Time: ", training_duration, " seconds")
+message("Total Imputation Time: ", imputation_duration, " seconds")
+print(assessment_df_gam)
+```

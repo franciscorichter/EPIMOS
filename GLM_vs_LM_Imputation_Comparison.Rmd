@@ -1,0 +1,168 @@
+
+---
+title: "GLM vs LM Imputation Comparison"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GitHub Documents
+
+This is an R Markdown format used for publishing markdown documents to GitHub. When you click the **Knit** button, all R code chunks are run, and a markdown file (.md) suitable for publishing to GitHub is generated.
+
+## GLM Imputation
+
+```{r glm}
+# Load required libraries
+library(httr)
+library(jsonlite)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(SparseTSCGM)
+
+# Function to fetch locations data
+fetch_locations_data <- function(domain) {
+  base_url <- "http://www.oasi.ti.ch/web/rest/locations"
+  params <- list(domain = domain)
+  
+  response <- GET(base_url, query = params)
+  
+  if (response$status_code == 200) {
+    return(fromJSON(content(response, as = "text", encoding = "UTF-8"), flatten = TRUE))
+  } else {
+    warning("Failed to get locations data. Status code:", response$status_code)
+    return(NULL)
+  }
+}
+
+# Function to fetch available parameters for a location
+fetch_parameters_data <- function(domain, location_code) {
+  base_url <- "http://www.oasi.ti.ch/web/rest/parameters"
+  params <- list(domain = domain, location = location_code)
+  
+  response <- GET(base_url, query = params)
+  
+  if (response$status_code == 200) {
+    return(fromJSON(content(response, as = "text", encoding = "UTF-8"), flatten = TRUE))
+  } else {
+    warning("Failed to get parameters data. Status code:", response$status_code)
+    return(NULL)
+  }
+}
+
+# Function to fetch time series data
+fetch_time_series_data <- function(domain, location_code, parameter, resolution, from_date, to_date) {
+  base_url <- "http://www.oasi.ti.ch/web/rest/measure/csv"
+  params <- list(
+    domain = domain,
+    location = location_code,
+    parameter = parameter,
+    resolution = resolution,
+    from = from_date,
+    to = to_date
+  )
+  
+  response <- GET(base_url, query = params)
+  
+  if (response$status_code == 200) {
+    return(content(response, as = "text", encoding = "UTF-8"))
+  } else {
+    warning("Failed to get data. Status code:", response$status_code)
+    return(NULL)
+  }
+}
+
+# Function to process and append data
+process_and_append_data <- function(response_data, parameter, location_name, data_frame) {
+  data_lines <- strsplit(response_data, "
+")[[1]]
+  data_lines <- data_lines[!grepl("^#", data_lines)]
+  
+  if (length(data_lines) > 0) {
+    data_clean <- paste(data_lines, collapse = "\n")
+    data_df <- read.csv(text = data_clean, sep = ";", header = TRUE)
+    
+    if ("data" %in% names(data_df) && parameter %in% names(data_df)) {
+      data_df$data <- as.Date(data_df$data, format="%d.%m.%Y %H:%M")
+      data_df[[parameter]] <- as.numeric(data_df[[parameter]])
+      data_df$Location <- location_name
+      data_frame <- rbind(data_frame, data_df)
+    }
+  }
+  return(data_frame)
+}
+
+# Function to preprocess data (convert negative values to NA)
+preprocess_data <- function(data_frame) {
+  data_frame[data_frame < 0] <- NA
+  return(data_frame)
+}
+
+# Function to process locations data
+process_locations <- function(domain) {
+  locations_data <- fetch_locations_data(domain = domain)
+  
+  # Initialize lists to hold locations data
+  q_locations <- list()
+  other_locations <- list()
+  
+  # Process each location to check for Q parameter availability
+  if (!is.null(locations_data)) {
+    for (i in seq_len(nrow(locations_data))) {
+      location_code <- locations_data$code[i]
+      location_name <- locations_data$name[i]
+      
+      # Fetch parameters data
+      parameters_data <- fetch_parameters_data(domain = domain, location_code = location_code)
+      
+      if (!is.null(parameters_data)) {
+        # Check if Q parameter is available
+        if (any(parameters_data$code == "Q")) {
+          q_locations <- append(q_locations, list(locations_data[i, ]))
+        } else {
+          other_locations <- append(other_locations, list(locations_data[i, ]))
+        }
+      }
+    }
+    
+    # Convert lists to data frames
+    q_locations_df <- bind_rows(q_locations)
+    other_locations_df <- bind_rows(other_locations)
+    
+    # Display the separated data
+    message("Locations with Q Parameter:")
+    print(q_locations_df)
+    
+    message("Other Locations:")
+    print(other_locations_df)
+    
+    return(q_locations_df)
+  } else {
+    message("Failed to fetch location data.")
+    return(NULL)
+  }
+}
+
+
+
+imputation_end_time <- Sys.time()
+imputation_duration <- imputation_end_time - imputation_start_time
+message("Imputation Phase Duration (LM): ", imputation_duration, " seconds")
+
+# Display the assessment table for LM
+print(assessment_df_lm)
+```
+
+## Summary of GLM and LM Results
+
+```{r summary}
+# Display both assessment data frames for comparison
+print("GLM Results:")
+print(assessment_df_glm)
+
+print("LM Results:")
+print(assessment_df_lm)
+```
