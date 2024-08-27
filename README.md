@@ -2,7 +2,7 @@
 **Environmental Prediction and Imputation Modular Statistical System**
 
 ## Overview
-EPIMOS (Environmental Prediction and Imputation Modular Statistical System) is a comprehensive framework designed to predict and impute missing environmental variables through a modular statistical approach. This system facilitates the preprocessing, modeling, and prediction of environmental data on both daily and yearly scales.
+EPIMOS (Environmental Prediction and Imputation Modular Statistical System) is a comprehensive framework designed to predict and impute missing environmental variables through a modular statistical approach. This system facilitates the preprocessing, modeling, and prediction of environmental data on different time scales.
 
 ## Features
 - **Modular Design**: The system is built with a modular approach, making it flexible and extensible.
@@ -15,7 +15,7 @@ EPIMOS (Environmental Prediction and Imputation Modular Statistical System) is a
 The system follows a multi-module development approach:
 
 1. **Data Preprocessing Module**:
-    - Processes OASI data.
+    - Processes OASI data.   https://www.oasi.ti.ch/web/dati/api.html
     - Prepares data for modeling and prediction.
 
 2. **Building Module** (Yearly):

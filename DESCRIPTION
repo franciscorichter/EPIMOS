@@ -1,0 +1,19 @@
+Package: EPIMOS
+Type: Package
+Title: Environmental Prediction and Imputation Modular Statistical System
+Version: 0.1.0
+Author: Francisco Richter [aut, cre] (<richtf@usi.ch>)
+Maintainer: Francisco Richter <richtf@usi.ch>
+Description: EPIMOS is a comprehensive framework designed to predict and impute missing environmental variables through a modular statistical approach. This package facilitates the preprocessing, modeling, and prediction of environmental data on both daily and yearly scales. It includes a data preprocessing module for handling raw environmental data, a prediction module for daily environmental variable predictions, and a building module for yearly updates to the prediction model.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Imports:
+    httr (>= 1.4.2),
+    jsonlite (>= 1.7.2)
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown

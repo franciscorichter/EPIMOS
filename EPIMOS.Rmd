@@ -259,7 +259,7 @@ dta <- as.data.frame(dat[,-1])
 dta[] <- lapply(dta, function(x) as.numeric(trimws(x)))
 
 # Preprocess data: Treat negative values as NA
-dta <- preprocess_data(dta)
+dta[dta < 0] <- NA
 
 training_end_time <- Sys.time()
 training_duration <- training_end_time - training_start_time

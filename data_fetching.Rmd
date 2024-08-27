@@ -1,0 +1,212 @@
+---
+title: ""
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(jsonlite)
+library(httr)
+library(dplyr)
+library(sf)
+library(leaflet)
+
+library(EPIMOS)
+```
+
+# Introduction
+
+The **EPIMOS** package (Environmental Prediction and Imputation Modular Statistical System) is a powerful tool designed to facilitate the analysis of environmental data. This package offers modular and flexible functionalities to access, process, and visualize location-based environmental measurements from various sources.
+
+In this R Markdown document, we demonstrate how to use the EPIMOS package to fetch and process location data related to surface water monitoring. Our goal is to separate locations based on the availability of the "Q" parameter, which represents specific environmental conditions or measurements. Following this, we will visualize these locations on an interactive map.
+
+## Workflow Overview
+
+1. **Data Retrieval**:
+    - We start by fetching location data from the OASI API using the `process_locations()` function. This function separates locations into two categories: those with the "Q" parameter and those without.
+
+2. **Data Processing**:
+    - Once the locations are categorized, we transform the coordinates from the Swiss coordinate system (CH1903) to the WGS84 system, which is commonly used in GPS and mapping applications.
+
+3. **Data Visualization**:
+    - Finally, we use the `leaflet` package to create an interactive map. This map allows users to visually explore the locations, with each point on the map representing a monitoring site. Clicking on these points reveals additional information about the site.
+
+## Example Output
+
+The processed data yields a list of locations that include the "Q" parameter, alongside those that do not. By converting the coordinates into the WGS84 system, we can accurately plot these locations on a global map, facilitating further exploration and analysis.
+
+Below, we present an interactive map that visualizes these locations, offering an intuitive way to examine the geographical distribution of environmental monitoring sites.
+
+```{r cars}
+
+data <- process_locations("surfacewater")
+
+# Convert to an sf object with Swiss coordinate system (CH1903)
+data_sf <- st_as_sf(data, coords = c("coordinates.x", "coordinates.y"), crs = 21781)
+
+# Transform to WGS84
+data_wgs84 <- st_transform(data_sf, crs = 4326)
+
+# Extract transformed coordinates
+data_wgs84$longitude <- st_coordinates(data_wgs84)[,1]
+data_wgs84$latitude <- st_coordinates(data_wgs84)[,2]
+
+# Create a leaflet map
+leaflet(data = data_wgs84) %>%
+  addTiles() %>%
+  addCircleMarkers(~longitude, ~latitude, popup = ~name, label = ~name, color = 'blue', radius = 5)
+```
+
+
+now training 
+
+
+```{r}
+# Internal Function to process and append data
+process_and_append_data <- function(response_data, parameter, location_name, data_frame) {
+  data_lines <- strsplit(response_data, "\n")[[1]]
+  data_lines <- data_lines[!grepl("^#", data_lines)]
+  
+  if (length(data_lines) > 0) {
+    data_clean <- paste(data_lines, collapse = "\n")
+    data_df <- read.csv(text = data_clean, sep = ";", header = TRUE)
+    
+    if ("data" %in% names(data_df) && parameter %in% names(data_df)) {
+      data_df$data <- as.Date(data_df$data, format="%d.%m.%Y %H:%M")
+      data_df[[parameter]] <- as.numeric(data_df[[parameter]])
+      data_df$Location <- location_name
+      data_frame <- rbind(data_frame, data_df)
+    }
+  }
+  return(data_frame)
+}
+
+# Function to mask data for validation
+mask_data_for_validation <- function(data_frame, prop_missing = 0.1) {
+  set.seed(42)  # For reproducibility
+  masked_data <- data_frame
+  known_indices <- which(!is.na(masked_data), arr.ind = TRUE)
+  n_to_mask <- round(prop_missing * nrow(known_indices))
+  
+  # Randomly select indices to mask
+  mask_indices <- known_indices[sample(nrow(known_indices), n_to_mask), ]
+  masked_data[mask_indices] <- NA
+  
+  return(list(masked_data = masked_data, original_indices = mask_indices))
+}
+
+# --- Training Phase ---
+training_start_time <- Sys.time()
+
+# Fetch all locations for the surfacewater domain
+q_locations_df <- process_locations("surfacewater")
+
+# Initialize data frames to hold time series data
+q_data <- data.frame()
+
+# Fetch time series data for locations with Q parameter
+if (!is.null(q_locations_df)) {
+  for (i in seq_len(nrow(q_locations_df))) {
+    location_code <- q_locations_df$code[i]
+    location_name <- q_locations_df$name[i]
+    
+    # Fetch Q parameter data
+    q_data_response <- fetch_time_series_data(
+      domain = "surfacewater", 
+      location_code = location_code, 
+      parameter = "Q", 
+      resolution = "d", 
+      from_date = "2021-01-19", 
+      to_date = "2024-07-18"
+    )
+    
+    if (!is.null(q_data_response)) {
+      q_data <- process_and_append_data(q_data_response, "Q", location_name, q_data)
+    }
+  }
+}
+
+# Reshape the data into wide format
+longitudinal_data <- q_data %>%
+  select(data, Location, Q) %>%
+  pivot_wider(names_from = Location, values_from = Q) %>%
+  arrange(data)
+
+# Convert the data to a matrix format for further analysis
+dat <- as.matrix(longitudinal_data)
+loc <- colnames(dat[,-1])
+tms <- unique(dat[,1])
+nl <- length(loc)
+nt <- length(tms)
+
+dta <- as.data.frame(dat[,-1])
+
+# Remove leading/trailing whitespace and convert to numeric for all columns
+dta[] <- lapply(dta, function(x) as.numeric(trimws(x)))
+
+# Preprocess data: Treat negative values as NA
+dta[dta < 0] <- NA
+
+# Train predictive models
+models <- train_models(dta, method = "glm", glm_family = gaussian())
+
+training_end_time <- Sys.time()
+training_duration <- training_end_time - training_start_time
+message("Training Phase Duration: ", training_duration, " seconds")
+
+# --- Imputation Phase ---
+imputation_start_time <- Sys.time()
+
+# Mask known data for validation (e.g., mask 10% of the data)
+validation_data <- mask_data_for_validation(dta, prop_missing = 0.1)
+dta_masked <- validation_data$masked_data
+original_indices <- validation_data$original_indices
+
+# Impute the masked data using the trained models
+dta_imputed <- impute_missing_data_with_model(dta_masked, models)
+
+# Initialize a list to store the assessment metrics
+assessment_metrics <- list()
+
+# Compare imputed values with original values for each location
+for (i in seq_len(nl)) {
+  loc_indices <- original_indices[original_indices[, 2] == i, ]
+  comparison <- data.frame(
+    Original = dta[loc_indices],
+    Imputed = dta_imputed[loc_indices]
+  )
+  
+  # Calculate the Mean Absolute Error (MAE) for this location
+  mae <- mean(abs(comparison$Original - comparison$Imputed), na.rm = TRUE)
+  message("Mean Absolute Error (MAE) for Location ", loc[i], ": ", round(mae, 4))
+  
+  # Store the assessment metrics
+  assessment_metrics[[i]] <- data.frame(Location = loc[i], MAE = mae)
+  
+  # Prepare the data for plotting imputed values
+  mss <- is.na(dta[,i])
+  plot_data <- data.frame(
+    Index = seq_along(dta_imputed[,i]),
+    Value = dta_imputed[,i],
+    Missing = as.factor(mss)
+  )
+  
+  # Create the plot with the actual location name
+  g2 <- ggplot(plot_data, aes(x = Index, y = Value, color = Missing)) +
+    geom_point() +
+    labs(
+      title = paste("Imputed Data for Location:", loc[i]),  # Use actual location name
+      x = "Index",
+      y = "Value"
+    ) +
+    scale_color_manual(values = c("black", "red"), labels = c("Observed", "Imputed")) +
+    theme_minimal()
+  print(g2)
+}
+
+imputation_end_time <- Sys.time()
+imputation_duration <- imputation_end_time - imputation_start_time
+message("Imputation Phase Duration: ", imputation_duration, " seconds")
+```

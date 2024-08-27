@@ -458,7 +458,7 @@ training_duration <- training_end_time - training_start_time
 message("Training Phase Duration: ", training_duration, " seconds")
 ```
 
-    ## Training Phase Duration: 30.1595640182495 seconds
+    ## Training Phase Duration: 18.8309819698334 seconds
 
 ``` r
 # --- Imputation Phase ---
@@ -700,6 +700,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 26 in
     ## model.matrix: no columns are assigned
 
+    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
+    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
+
     ## Imputing missing data for column: Scairolo - Barbengo
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -707,9 +710,6 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 27 in
     ## model.matrix: no columns are assigned
-
-    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Ticino - Bellinzona
 
@@ -1109,7 +1109,7 @@ imputation_duration <- imputation_end_time - imputation_start_time
 message("Imputation Phase Duration: ", imputation_duration, " seconds")
 ```
 
-    ## Imputation Phase Duration: 3.2705352306366 seconds
+    ## Imputation Phase Duration: 2.68972301483154 seconds
 
 ``` r
 # Display the assessment table
@@ -1160,13 +1160,13 @@ print(assessment_df)
 message("Total Training Time: ", training_duration, " seconds")
 ```
 
-    ## Total Training Time: 30.1595640182495 seconds
+    ## Total Training Time: 18.8309819698334 seconds
 
 ``` r
 message("Total Imputation Time: ", imputation_duration, " seconds")
 ```
 
-    ## Total Imputation Time: 3.2705352306366 seconds
+    ## Total Imputation Time: 2.68972301483154 seconds
 
 ``` r
 assessment_df_gam = assessment_df
@@ -1607,7 +1607,7 @@ training_duration <- training_end_time - training_start_time
 message("Training Phase Duration: ", training_duration, " seconds")
 ```
 
-    ## Training Phase Duration: 28.5000860691071 seconds
+    ## Training Phase Duration: 17.8455090522766 seconds
 
 ``` r
 # --- Imputation Phase ---
@@ -1752,9 +1752,6 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 15 in
     ## model.matrix: no columns are assigned
 
-    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
-    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
-
     ## Imputing missing data for column: Maggia - Solduno
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -1848,6 +1845,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 26 in
     ## model.matrix: no columns are assigned
+
+    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
+    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Scairolo - Barbengo
 
@@ -2258,7 +2258,7 @@ imputation_duration <- imputation_end_time - imputation_start_time
 message("Imputation Phase Duration: ", imputation_duration, " seconds")
 ```
 
-    ## Imputation Phase Duration: 2.69378185272217 seconds
+    ## Imputation Phase Duration: 2.3614661693573 seconds
 
 ``` r
 # Display the assessment table
@@ -2309,13 +2309,13 @@ print(assessment_df)
 message("Total Training Time: ", training_duration, " seconds")
 ```
 
-    ## Total Training Time: 28.5000860691071 seconds
+    ## Total Training Time: 17.8455090522766 seconds
 
 ``` r
 message("Total Imputation Time: ", imputation_duration, " seconds")
 ```
 
-    ## Total Imputation Time: 2.69378185272217 seconds
+    ## Total Imputation Time: 2.3614661693573 seconds
 
 ``` r
 print(assessment_df_gam)
