@@ -13,6 +13,7 @@ library(dplyr)
 library(sf)
 library(leaflet)
 
+
 library(EPIMOS)
 ```
 
@@ -64,6 +65,11 @@ now training
 
 
 ```{r}
+
+
+library(tidyr)
+library(ggplot2)
+
 # Internal Function to process and append data
 process_and_append_data <- function(response_data, parameter, location_name, data_frame) {
   data_lines <- strsplit(response_data, "\n")[[1]]
@@ -97,116 +103,7 @@ mask_data_for_validation <- function(data_frame, prop_missing = 0.1) {
   return(list(masked_data = masked_data, original_indices = mask_indices))
 }
 
-# --- Training Phase ---
-training_start_time <- Sys.time()
 
-# Fetch all locations for the surfacewater domain
-q_locations_df <- process_locations("surfacewater")
-
-# Initialize data frames to hold time series data
-q_data <- data.frame()
-
-# Fetch time series data for locations with Q parameter
-if (!is.null(q_locations_df)) {
-  for (i in seq_len(nrow(q_locations_df))) {
-    location_code <- q_locations_df$code[i]
-    location_name <- q_locations_df$name[i]
-    
-    # Fetch Q parameter data
-    q_data_response <- fetch_time_series_data(
-      domain = "surfacewater", 
-      location_code = location_code, 
-      parameter = "Q", 
-      resolution = "d", 
-      from_date = "2021-01-19", 
-      to_date = "2024-07-18"
-    )
-    
-    if (!is.null(q_data_response)) {
-      q_data <- process_and_append_data(q_data_response, "Q", location_name, q_data)
-    }
-  }
-}
-
-# Reshape the data into wide format
-longitudinal_data <- q_data %>%
-  select(data, Location, Q) %>%
-  pivot_wider(names_from = Location, values_from = Q) %>%
-  arrange(data)
-
-# Convert the data to a matrix format for further analysis
-dat <- as.matrix(longitudinal_data)
-loc <- colnames(dat[,-1])
-tms <- unique(dat[,1])
-nl <- length(loc)
-nt <- length(tms)
-
-dta <- as.data.frame(dat[,-1])
-
-# Remove leading/trailing whitespace and convert to numeric for all columns
-dta[] <- lapply(dta, function(x) as.numeric(trimws(x)))
-
-# Preprocess data: Treat negative values as NA
-dta[dta < 0] <- NA
-
-# Train predictive models
-models <- train_models(dta, method = "glm", glm_family = gaussian())
-
-training_end_time <- Sys.time()
-training_duration <- training_end_time - training_start_time
-message("Training Phase Duration: ", training_duration, " seconds")
-
-# --- Imputation Phase ---
-imputation_start_time <- Sys.time()
-
-# Mask known data for validation (e.g., mask 10% of the data)
-validation_data <- mask_data_for_validation(dta, prop_missing = 0.1)
-dta_masked <- validation_data$masked_data
-original_indices <- validation_data$original_indices
-
-# Impute the masked data using the trained models
-dta_imputed <- impute_missing_data_with_model(dta_masked, models)
-
-# Initialize a list to store the assessment metrics
-assessment_metrics <- list()
-
-# Compare imputed values with original values for each location
-for (i in seq_len(nl)) {
-  loc_indices <- original_indices[original_indices[, 2] == i, ]
-  comparison <- data.frame(
-    Original = dta[loc_indices],
-    Imputed = dta_imputed[loc_indices]
-  )
-  
-  # Calculate the Mean Absolute Error (MAE) for this location
-  mae <- mean(abs(comparison$Original - comparison$Imputed), na.rm = TRUE)
-  message("Mean Absolute Error (MAE) for Location ", loc[i], ": ", round(mae, 4))
-  
-  # Store the assessment metrics
-  assessment_metrics[[i]] <- data.frame(Location = loc[i], MAE = mae)
-  
-  # Prepare the data for plotting imputed values
-  mss <- is.na(dta[,i])
-  plot_data <- data.frame(
-    Index = seq_along(dta_imputed[,i]),
-    Value = dta_imputed[,i],
-    Missing = as.factor(mss)
-  )
-  
-  # Create the plot with the actual location name
-  g2 <- ggplot(plot_data, aes(x = Index, y = Value, color = Missing)) +
-    geom_point() +
-    labs(
-      title = paste("Imputed Data for Location:", loc[i]),  # Use actual location name
-      x = "Index",
-      y = "Value"
-    ) +
-    scale_color_manual(values = c("black", "red"), labels = c("Observed", "Imputed")) +
-    theme_minimal()
-  print(g2)
-}
-
-imputation_end_time <- Sys.time()
-imputation_duration <- imputation_end_time - imputation_start_time
-message("Imputation Phase Duration: ", imputation_duration, " seconds")
 ```
+
+

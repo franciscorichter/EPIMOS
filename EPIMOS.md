@@ -451,14 +451,14 @@ dta <- as.data.frame(dat[,-1])
 dta[] <- lapply(dta, function(x) as.numeric(trimws(x)))
 
 # Preprocess data: Treat negative values as NA
-dta <- preprocess_data(dta)
+dta[dta < 0] <- NA
 
 training_end_time <- Sys.time()
 training_duration <- training_end_time - training_start_time
 message("Training Phase Duration: ", training_duration, " seconds")
 ```
 
-    ## Training Phase Duration: 18.8309819698334 seconds
+    ## Training Phase Duration: 44.0181519985199 seconds
 
 ``` r
 # --- Imputation Phase ---
@@ -568,9 +568,6 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 11 in
     ## model.matrix: no columns are assigned
 
-    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-
     ## Imputing missing data for column: Laveggio - Riva S. Vitale
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -621,9 +618,6 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 17 in
     ## model.matrix: no columns are assigned
-
-    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Mara - Maroggia
 
@@ -700,9 +694,6 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 26 in
     ## model.matrix: no columns are assigned
 
-    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-
     ## Imputing missing data for column: Scairolo - Barbengo
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -710,6 +701,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 27 in
     ## model.matrix: no columns are assigned
+
+    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
+    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Ticino - Bellinzona
 
@@ -1109,7 +1103,7 @@ imputation_duration <- imputation_end_time - imputation_start_time
 message("Imputation Phase Duration: ", imputation_duration, " seconds")
 ```
 
-    ## Imputation Phase Duration: 2.68972301483154 seconds
+    ## Imputation Phase Duration: 3.0781819820404 seconds
 
 ``` r
 # Display the assessment table
@@ -1160,13 +1154,13 @@ print(assessment_df)
 message("Total Training Time: ", training_duration, " seconds")
 ```
 
-    ## Total Training Time: 18.8309819698334 seconds
+    ## Total Training Time: 44.0181519985199 seconds
 
 ``` r
 message("Total Imputation Time: ", imputation_duration, " seconds")
 ```
 
-    ## Total Imputation Time: 2.68972301483154 seconds
+    ## Total Imputation Time: 3.0781819820404 seconds
 
 ``` r
 assessment_df_gam = assessment_df
@@ -1607,7 +1601,7 @@ training_duration <- training_end_time - training_start_time
 message("Training Phase Duration: ", training_duration, " seconds")
 ```
 
-    ## Training Phase Duration: 17.8455090522766 seconds
+    ## Training Phase Duration: 49.4677290916443 seconds
 
 ``` r
 # --- Imputation Phase ---
@@ -1751,6 +1745,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 15 in
     ## model.matrix: no columns are assigned
+
+    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
+    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Maggia - Solduno
 
@@ -2258,7 +2255,7 @@ imputation_duration <- imputation_end_time - imputation_start_time
 message("Imputation Phase Duration: ", imputation_duration, " seconds")
 ```
 
-    ## Imputation Phase Duration: 2.3614661693573 seconds
+    ## Imputation Phase Duration: 2.37141799926758 seconds
 
 ``` r
 # Display the assessment table
@@ -2309,13 +2306,13 @@ print(assessment_df)
 message("Total Training Time: ", training_duration, " seconds")
 ```
 
-    ## Total Training Time: 17.8455090522766 seconds
+    ## Total Training Time: 49.4677290916443 seconds
 
 ``` r
 message("Total Imputation Time: ", imputation_duration, " seconds")
 ```
 
-    ## Total Imputation Time: 2.3614661693573 seconds
+    ## Total Imputation Time: 2.37141799926758 seconds
 
 ``` r
 print(assessment_df_gam)

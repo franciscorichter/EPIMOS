@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-08-27" />
+<meta name="date" content="2024-08-28" />
 
 <title>data_fetching.knit</title>
 
@@ -4653,8 +4653,44 @@ data_wgs84$latitude &lt;- st_coordinates(data_wgs84)[,2]
 leaflet(data = data_wgs84) %&gt;%
   addTiles() %&gt;%
   addCircleMarkers(~longitude, ~latitude, popup = ~name, label = ~name, color = &#39;blue&#39;, radius = 5)</code></pre>
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-5002617625c1893bad03" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-5002617625c1893bad03">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircleMarkers","args":[[45.90066082574759,45.84547519456488,46.37646676352296,46.28357179765915,46.5180136612703,46.16024201530531,46.01765857412861,46.0424618155581,45.83230972606495,46.54557506496035,46.529086499608,45.87944071925367,45.89604535272468,45.99368173145695,46.33830596114597,46.2616417027525,46.16832421497767,45.98195962583946,45.93488235608098,46.22311874102934,46.16941316522703,46.45689991591958,46.25829801271232,46.23352981150274,46.28532005453974,46.27764616162496,46.25150065111919,45.95224242316693,46.2011523699228,46.51666869853931,46.35930601219985,46.49754843480544,45.9770770455424,45.97199536210988,45.99803385505793,46.00312908598166,46.13211383514306,46.2489760626332],[8.890378963034616,9.013082294699576,8.969399204487656,9.118232483774356,8.638321757256699,8.909217809971571,8.962447938512625,9.140406135951206,9.017118832011963,8.642987741973011,8.626522549613879,8.977281495429457,8.97362467452489,8.825339649966136,8.608115813295695,8.689224053241135,8.773583195774377,8.878986680748763,8.973218238800122,9.055764010801264,9.00011572753918,8.771354641527809,8.840125593605469,9.019445508833625,8.506667830542934,8.488391689668553,8.707147408861594,8.90890264181593,9.020740979765293,8.671524239200611,8.947473143610738,8.497823584326985,8.42280497061425,8.852402105763588,8.902259569358458,8.911691561498216,8.994634700076414,8.844554244858044],5,null,null,{"interactive":true,"className":"","stroke":true,"color":"blue","weight":5,"opacity":0.5,"fill":true,"fillColor":"blue","fillOpacity":0.2},null,null,["Bolletta - Porto Ceresio","Breggia - Chiasso","Brenno - Loderio","Calancasca - Buseno","Calcaccia - Airolo","Canale Bonifica - Quartino","Cassarate - Pregassona","Cuccio - Porlezza","Faloppia - Chiasso","Garegna Föisc","Garegna Presa AET","Laveggio - Mendrisio","Laveggio - Riva S. Vitale","Lisora - Monteggio","Maggia - Bignasco","Maggia - Lodano","Maggia - Solduno","Magliasina - Magliaso","Mara - Maroggia","Moesa - Lumino","Morobbia - Giubiasco","Piumogna - Dalpe","Riale Pincascia - Lavertezzo","Riale di Gnosca - Gnosca","Rovana - Briglia Secada","Rovana - Galleria di derivazione","Salto - Maggia","Scairolo - Barbengo","Ticino - Bellinzona","Ticino - Piotta","Ticino - Pollegio","Ticino - Ronco Bedretto","Toce - Candoglia","Tresa - Ponte Tresa","Vecchio Vedeggio - Agno","Vedeggio - Agno","Vedeggio - Isone","Verzasca - Lavertezzo"],null,["Bolletta - Porto Ceresio","Breggia - Chiasso","Brenno - Loderio","Calancasca - Buseno","Calcaccia - Airolo","Canale Bonifica - Quartino","Cassarate - Pregassona","Cuccio - Porlezza","Faloppia - Chiasso","Garegna Föisc","Garegna Presa AET","Laveggio - Mendrisio","Laveggio - Riva S. Vitale","Lisora - Monteggio","Maggia - Bignasco","Maggia - Lodano","Maggia - Solduno","Magliasina - Magliaso","Mara - Maroggia","Moesa - Lumino","Morobbia - Giubiasco","Piumogna - Dalpe","Riale Pincascia - Lavertezzo","Riale di Gnosca - Gnosca","Rovana - Briglia Secada","Rovana - Galleria di derivazione","Salto - Maggia","Scairolo - Barbengo","Ticino - Bellinzona","Ticino - Piotta","Ticino - Pollegio","Ticino - Ronco Bedretto","Toce - Candoglia","Tresa - Ponte Tresa","Vecchio Vedeggio - Agno","Vedeggio - Agno","Vedeggio - Isone","Verzasca - Lavertezzo"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[45.83230972606495,46.54557506496035],"lng":[8.42280497061425,9.140406135951206]}},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-5062087e503071faefa8" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-5062087e503071faefa8">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircleMarkers","args":[[45.90066082574759,45.84547519456488,46.37646676352296,46.28357179765915,46.5180136612703,46.16024201530531,46.01765857412861,46.0424618155581,45.83230972606495,46.54557506496035,46.529086499608,45.87944071925367,45.89604535272468,45.99368173145695,46.33830596114597,46.2616417027525,46.16832421497767,45.98195962583946,45.93488235608098,46.22311874102934,46.16941316522703,46.45689991591958,46.25829801271232,46.23352981150274,46.28532005453974,46.27764616162496,46.25150065111919,45.95224242316693,46.2011523699228,46.51666869853931,46.35930601219985,46.49754843480544,45.9770770455424,45.97199536210988,45.99803385505793,46.00312908598166,46.13211383514306,46.2489760626332],[8.890378963034616,9.013082294699576,8.969399204487656,9.118232483774356,8.638321757256699,8.909217809971571,8.962447938512625,9.140406135951206,9.017118832011963,8.642987741973011,8.626522549613879,8.977281495429457,8.97362467452489,8.825339649966136,8.608115813295695,8.689224053241135,8.773583195774377,8.878986680748763,8.973218238800122,9.055764010801264,9.00011572753918,8.771354641527809,8.840125593605469,9.019445508833625,8.506667830542934,8.488391689668553,8.707147408861594,8.90890264181593,9.020740979765293,8.671524239200611,8.947473143610738,8.497823584326985,8.42280497061425,8.852402105763588,8.902259569358458,8.911691561498216,8.994634700076414,8.844554244858044],5,null,null,{"interactive":true,"className":"","stroke":true,"color":"blue","weight":5,"opacity":0.5,"fill":true,"fillColor":"blue","fillOpacity":0.2},null,null,["Bolletta - Porto Ceresio","Breggia - Chiasso","Brenno - Loderio","Calancasca - Buseno","Calcaccia - Airolo","Canale Bonifica - Quartino","Cassarate - Pregassona","Cuccio - Porlezza","Faloppia - Chiasso","Garegna Föisc","Garegna Presa AET","Laveggio - Mendrisio","Laveggio - Riva S. Vitale","Lisora - Monteggio","Maggia - Bignasco","Maggia - Lodano","Maggia - Solduno","Magliasina - Magliaso","Mara - Maroggia","Moesa - Lumino","Morobbia - Giubiasco","Piumogna - Dalpe","Riale Pincascia - Lavertezzo","Riale di Gnosca - Gnosca","Rovana - Briglia Secada","Rovana - Galleria di derivazione","Salto - Maggia","Scairolo - Barbengo","Ticino - Bellinzona","Ticino - Piotta","Ticino - Pollegio","Ticino - Ronco Bedretto","Toce - Candoglia","Tresa - Ponte Tresa","Vecchio Vedeggio - Agno","Vedeggio - Agno","Vedeggio - Isone","Verzasca - Lavertezzo"],null,["Bolletta - Porto Ceresio","Breggia - Chiasso","Brenno - Loderio","Calancasca - Buseno","Calcaccia - Airolo","Canale Bonifica - Quartino","Cassarate - Pregassona","Cuccio - Porlezza","Faloppia - Chiasso","Garegna Föisc","Garegna Presa AET","Laveggio - Mendrisio","Laveggio - Riva S. Vitale","Lisora - Monteggio","Maggia - Bignasco","Maggia - Lodano","Maggia - Solduno","Magliasina - Magliaso","Mara - Maroggia","Moesa - Lumino","Morobbia - Giubiasco","Piumogna - Dalpe","Riale Pincascia - Lavertezzo","Riale di Gnosca - Gnosca","Rovana - Briglia Secada","Rovana - Galleria di derivazione","Salto - Maggia","Scairolo - Barbengo","Ticino - Bellinzona","Ticino - Piotta","Ticino - Pollegio","Ticino - Ronco Bedretto","Toce - Candoglia","Tresa - Ponte Tresa","Vecchio Vedeggio - Agno","Vedeggio - Agno","Vedeggio - Isone","Verzasca - Lavertezzo"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[45.83230972606495,46.54557506496035],"lng":[8.42280497061425,9.140406135951206]}},"evals":[],"jsHooks":[]}</script>
+<p>now training</p>
+<pre class="r"><code>library(tidyr)
+library(ggplot2)
+
+# Internal Function to process and append data
+process_and_append_data &lt;- function(response_data, parameter, location_name, data_frame) {
+  data_lines &lt;- strsplit(response_data, &quot;\n&quot;)[[1]]
+  data_lines &lt;- data_lines[!grepl(&quot;^#&quot;, data_lines)]
+  
+  if (length(data_lines) &gt; 0) {
+    data_clean &lt;- paste(data_lines, collapse = &quot;\n&quot;)
+    data_df &lt;- read.csv(text = data_clean, sep = &quot;;&quot;, header = TRUE)
+    
+    if (&quot;data&quot; %in% names(data_df) &amp;&amp; parameter %in% names(data_df)) {
+      data_df$data &lt;- as.Date(data_df$data, format=&quot;%d.%m.%Y %H:%M&quot;)
+      data_df[[parameter]] &lt;- as.numeric(data_df[[parameter]])
+      data_df$Location &lt;- location_name
+      data_frame &lt;- rbind(data_frame, data_df)
+    }
+  }
+  return(data_frame)
+}
+
+# Function to mask data for validation
+mask_data_for_validation &lt;- function(data_frame, prop_missing = 0.1) {
+  set.seed(42)  # For reproducibility
+  masked_data &lt;- data_frame
+  known_indices &lt;- which(!is.na(masked_data), arr.ind = TRUE)
+  n_to_mask &lt;- round(prop_missing * nrow(known_indices))
+  
+  # Randomly select indices to mask
+  mask_indices &lt;- known_indices[sample(nrow(known_indices), n_to_mask), ]
+  masked_data[mask_indices] &lt;- NA
+  
+  return(list(masked_data = masked_data, original_indices = mask_indices))
+}</code></pre>
 </div>
 </div>
 
