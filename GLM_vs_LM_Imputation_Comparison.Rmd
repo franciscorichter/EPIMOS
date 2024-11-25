@@ -148,9 +148,9 @@ process_locations <- function(domain) {
 
 
 
-imputation_end_time <- Sys.time()
-imputation_duration <- imputation_end_time - imputation_start_time
-message("Imputation Phase Duration (LM): ", imputation_duration, " seconds")
+#imputation_end_time <- Sys.time()
+#imputation_duration <- imputation_end_time - imputation_start_time
+#message("Imputation Phase Duration (LM): ", imputation_duration, " seconds")
 
 # Display the assessment table for LM
 print(assessment_df_lm)

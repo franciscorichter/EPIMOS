@@ -39,7 +39,7 @@ if (!is.null(data)) {
   data$coordinates.z <- as.numeric(data$coordinates.z)
   
   # Convert to an sf object with Swiss coordinate system (CH1903)
-  data_sf <- st_as_sf(data, coords = c("coordinates.x", "coordinates.y"), crs = 21781)
+  data_sf <- st_as_sf(data, coords =  c("coordinates.x", "coordinates.y"), crs = 21781)
   
   # Transform to WGS84
   data_wgs84 <- st_transform(data_sf, crs = 4326)

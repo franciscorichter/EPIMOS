@@ -458,7 +458,7 @@ training_duration <- training_end_time - training_start_time
 message("Training Phase Duration: ", training_duration, " seconds")
 ```
 
-    ## Training Phase Duration: 44.0181519985199 seconds
+    ## Training Phase Duration: 30.439838886261 seconds
 
 ``` r
 # --- Imputation Phase ---
@@ -490,6 +490,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 2 in
     ## model.matrix: no columns are assigned
 
+    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
+    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
+
     ## Imputing missing data for column: Brenno - Loderio
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -517,9 +520,6 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 5 in
     ## model.matrix: no columns are assigned
 
-    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-
     ## Imputing missing data for column: Canale Bonifica - Quartino
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -543,6 +543,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 8 in
     ## model.matrix: no columns are assigned
+
+    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
+    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Faloppia - Chiasso
 
@@ -619,6 +622,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 17 in
     ## model.matrix: no columns are assigned
 
+    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
+    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
+
     ## Imputing missing data for column: Mara - Maroggia
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -634,6 +640,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 19 in
     ## model.matrix: no columns are assigned
+
+    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
+    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Morobbia - Giubiasco
 
@@ -659,6 +668,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 22 in
     ## model.matrix: no columns are assigned
 
+    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
+    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
+
     ## Imputing missing data for column: Riale di Gnosca - Gnosca
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -666,6 +678,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 23 in
     ## model.matrix: no columns are assigned
+
+    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
+    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Rovana - Briglia Secada
 
@@ -694,6 +709,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 26 in
     ## model.matrix: no columns are assigned
 
+    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
+    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
+
     ## Imputing missing data for column: Scairolo - Barbengo
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -712,6 +730,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 28 in
     ## model.matrix: no columns are assigned
+
+    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
+    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Ticino - Piotta
 
@@ -736,9 +757,6 @@ dta_imputed <- impute_missing_data(dta_masked, method = "glm", glm_family = gaus
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 31 in
     ## model.matrix: no columns are assigned
-
-    ## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-    ## prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Toce - Candoglia
 
@@ -835,261 +853,261 @@ for (i in seq_len(nl)) {
 }
 ```
 
-    ## Mean Absolute Error (MAE) for Location Bolletta - Porto Ceresio: 6.9957
+    ## Mean Absolute Error (MAE) for Location Bolletta - Porto Ceresio: 0.6364
 
-    ## Warning: Removed 70 rows containing missing values or values outside the scale range
+    ## Warning: Removed 68 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Breggia - Chiasso: 2.6153
+    ## Mean Absolute Error (MAE) for Location Breggia - Chiasso: 0.7772
 
 ![](EPIMOS_files/figure-gfm/cars-1.png)<!-- -->
 
-    ## Warning: Removed 136 rows containing missing values or values outside the scale range
+    ## Warning: Removed 129 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Brenno - Loderio: 3.9655
+    ## Mean Absolute Error (MAE) for Location Brenno - Loderio: 4.7253
 
 ![](EPIMOS_files/figure-gfm/cars-2.png)<!-- -->
 
-    ## Warning: Removed 59 rows containing missing values or values outside the scale range
+    ## Warning: Removed 71 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Calancasca - Buseno: 2.3353
+    ## Mean Absolute Error (MAE) for Location Calancasca - Buseno: 21.9025
 
 ![](EPIMOS_files/figure-gfm/cars-3.png)<!-- -->
 
-    ## Warning: Removed 80 rows containing missing values or values outside the scale range
+    ## Warning: Removed 242 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Calcaccia - Airolo: 0.1162
+    ## Mean Absolute Error (MAE) for Location Calcaccia - Airolo: 0.3652
 
 ![](EPIMOS_files/figure-gfm/cars-4.png)<!-- -->
 
-    ## Warning: Removed 39 rows containing missing values or values outside the scale range
+    ## Warning: Removed 113 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Canale Bonifica - Quartino: 0.3656
+    ## Mean Absolute Error (MAE) for Location Canale Bonifica - Quartino: 1.717
 
 ![](EPIMOS_files/figure-gfm/cars-5.png)<!-- -->
-
-    ## Warning: Removed 43 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Cassarate - Pregassona: 1.0674
-
-![](EPIMOS_files/figure-gfm/cars-6.png)<!-- -->
-
-    ## Warning: Removed 34 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Cuccio - Porlezza: 1.2364
-
-![](EPIMOS_files/figure-gfm/cars-7.png)<!-- -->
-
-    ## Warning: Removed 45 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Faloppia - Chiasso: 0.1768
-
-![](EPIMOS_files/figure-gfm/cars-8.png)<!-- -->
-
-    ## Warning: Removed 34 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Garegna Presa AET: 0.1313
-
-![](EPIMOS_files/figure-gfm/cars-9.png)<!-- -->
-
-    ## Warning: Removed 114 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Laveggio - Mendrisio: 0.1931
-
-![](EPIMOS_files/figure-gfm/cars-10.png)<!-- -->
-
-    ## Warning: Removed 34 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Laveggio - Riva S. Vitale: 0.5041
-
-![](EPIMOS_files/figure-gfm/cars-11.png)<!-- -->
-
-    ## Warning: Removed 49 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Lisora - Monteggio: 0.3574
-
-![](EPIMOS_files/figure-gfm/cars-12.png)<!-- -->
-
-    ## Warning: Removed 41 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Maggia - Bignasco: 1.2714
-
-![](EPIMOS_files/figure-gfm/cars-13.png)<!-- -->
-
-    ## Warning: Removed 32 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Maggia - Lodano: 8.4123
-
-![](EPIMOS_files/figure-gfm/cars-14.png)<!-- -->
-
-    ## Warning: Removed 241 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Maggia - Solduno: 6.2797
-
-![](EPIMOS_files/figure-gfm/cars-15.png)<!-- -->
-
-    ## Warning: Removed 32 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Magliasina - Magliaso: 1.2751
-
-![](EPIMOS_files/figure-gfm/cars-16.png)<!-- -->
-
-    ## Warning: Removed 54 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Mara - Maroggia: 0.5427
-
-![](EPIMOS_files/figure-gfm/cars-17.png)<!-- -->
-
-    ## Warning: Removed 32 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Moesa - Lumino: 72.7439
-
-![](EPIMOS_files/figure-gfm/cars-18.png)<!-- -->
-
-    ## Warning: Removed 64 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Morobbia - Giubiasco: 7.1461
-
-![](EPIMOS_files/figure-gfm/cars-19.png)<!-- -->
-
-    ## Warning: Removed 47 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Piumogna - Dalpe: 0.8914
-
-![](EPIMOS_files/figure-gfm/cars-20.png)<!-- -->
-
-    ## Warning: Removed 40 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Riale Pincascia - Lavertezzo: 3.0236
-
-![](EPIMOS_files/figure-gfm/cars-21.png)<!-- -->
 
     ## Warning: Removed 77 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Riale di Gnosca - Gnosca: 0.095
+    ## Mean Absolute Error (MAE) for Location Cassarate - Pregassona: 2.3288
 
-![](EPIMOS_files/figure-gfm/cars-22.png)<!-- -->
+![](EPIMOS_files/figure-gfm/cars-6.png)<!-- -->
 
-    ## Warning: Removed 41 rows containing missing values or values outside the scale range
+    ## Warning: Removed 99 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Rovana - Briglia Secada: 0.3808
+    ## Mean Absolute Error (MAE) for Location Cuccio - Porlezza: 5.4895
 
-![](EPIMOS_files/figure-gfm/cars-23.png)<!-- -->
+![](EPIMOS_files/figure-gfm/cars-7.png)<!-- -->
 
-    ## Warning: Removed 34 rows containing missing values or values outside the scale range
+    ## Warning: Removed 122 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Rovana - Galleria di derivazione: 0.5029
+    ## Mean Absolute Error (MAE) for Location Faloppia - Chiasso: 0.2346
 
-![](EPIMOS_files/figure-gfm/cars-24.png)<!-- -->
+![](EPIMOS_files/figure-gfm/cars-8.png)<!-- -->
 
-    ## Warning: Removed 60 rows containing missing values or values outside the scale range
+    ## Warning: Removed 63 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Salto - Maggia: 0.0711
+    ## Mean Absolute Error (MAE) for Location Garegna Presa AET: 3.0192
 
-![](EPIMOS_files/figure-gfm/cars-25.png)<!-- -->
+![](EPIMOS_files/figure-gfm/cars-9.png)<!-- -->
+
+    ## Warning: Removed 171 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Laveggio - Mendrisio: 1.1619
+
+![](EPIMOS_files/figure-gfm/cars-10.png)<!-- -->
+
+    ## Warning: Removed 102 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Laveggio - Riva S. Vitale: 0.4686
+
+![](EPIMOS_files/figure-gfm/cars-11.png)<!-- -->
+
+    ## Warning: Removed 55 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Lisora - Monteggio: 1.3505
+
+![](EPIMOS_files/figure-gfm/cars-12.png)<!-- -->
+
+    ## Warning: Removed 85 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Maggia - Bignasco: 1.287
+
+![](EPIMOS_files/figure-gfm/cars-13.png)<!-- -->
+
+    ## Warning: Removed 47 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Maggia - Lodano: 69.7251
+
+![](EPIMOS_files/figure-gfm/cars-14.png)<!-- -->
+
+    ## Warning: Removed 844 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Maggia - Solduno: 86.8297
+
+![](EPIMOS_files/figure-gfm/cars-15.png)<!-- -->
+
+    ## Warning: Removed 102 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Magliasina - Magliaso: 0.4903
+
+![](EPIMOS_files/figure-gfm/cars-16.png)<!-- -->
+
+    ## Warning: Removed 48 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Mara - Maroggia: 0.5183
+
+![](EPIMOS_files/figure-gfm/cars-17.png)<!-- -->
 
     ## Warning: Removed 74 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Scairolo - Barbengo: 0.1301
+    ## Mean Absolute Error (MAE) for Location Moesa - Lumino: 50.6044
+
+![](EPIMOS_files/figure-gfm/cars-18.png)<!-- -->
+
+    ## Warning: Removed 111 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Morobbia - Giubiasco: 10.1548
+
+![](EPIMOS_files/figure-gfm/cars-19.png)<!-- -->
+
+    ## Warning: Removed 99 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Piumogna - Dalpe: 1.0324
+
+![](EPIMOS_files/figure-gfm/cars-20.png)<!-- -->
+
+    ## Warning: Removed 86 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Riale Pincascia - Lavertezzo: 31.3166
+
+![](EPIMOS_files/figure-gfm/cars-21.png)<!-- -->
+
+    ## Warning: Removed 122 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Riale di Gnosca - Gnosca: 0.4398
+
+![](EPIMOS_files/figure-gfm/cars-22.png)<!-- -->
+
+    ## Warning: Removed 91 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Rovana - Briglia Secada: 1.8586
+
+![](EPIMOS_files/figure-gfm/cars-23.png)<!-- -->
+
+    ## Warning: Removed 113 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Rovana - Galleria di derivazione: 28.0769
+
+![](EPIMOS_files/figure-gfm/cars-24.png)<!-- -->
+
+    ## Warning: Removed 157 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Salto - Maggia: 0.0672
+
+![](EPIMOS_files/figure-gfm/cars-25.png)<!-- -->
+
+    ## Warning: Removed 130 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Scairolo - Barbengo: 0.4452
 
 ![](EPIMOS_files/figure-gfm/cars-26.png)<!-- -->
 
-    ## Warning: Removed 33 rows containing missing values or values outside the scale range
+    ## Warning: Removed 88 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Ticino - Bellinzona: 154.6446
+    ## Mean Absolute Error (MAE) for Location Ticino - Bellinzona: 191.8266
 
 ![](EPIMOS_files/figure-gfm/cars-27.png)<!-- -->
 
-    ## Warning: Removed 46 rows containing missing values or values outside the scale range
+    ## Warning: Removed 97 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Ticino - Piotta: 2.0942
+    ## Mean Absolute Error (MAE) for Location Ticino - Piotta: 2.622
 
 ![](EPIMOS_files/figure-gfm/cars-28.png)<!-- -->
 
-    ## Warning: Removed 42 rows containing missing values or values outside the scale range
+    ## Warning: Removed 62 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Ticino - Pollegio: 9.0517
+    ## Mean Absolute Error (MAE) for Location Ticino - Pollegio: 62.4963
 
 ![](EPIMOS_files/figure-gfm/cars-29.png)<!-- -->
 
-    ## Warning: Removed 61 rows containing missing values or values outside the scale range
+    ## Warning: Removed 98 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Ticino - Ronco Bedretto: 0.5523
+    ## Mean Absolute Error (MAE) for Location Ticino - Ronco Bedretto: 4.21
 
 ![](EPIMOS_files/figure-gfm/cars-30.png)<!-- -->
 
-    ## Warning: Removed 34 rows containing missing values or values outside the scale range
+    ## Warning: Removed 117 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Toce - Candoglia: 24.6444
+    ## Mean Absolute Error (MAE) for Location Toce - Candoglia: 546.3024
 
 ![](EPIMOS_files/figure-gfm/cars-31.png)<!-- -->
 
-    ## Warning: Removed 35 rows containing missing values or values outside the scale range
+    ## Warning: Removed 119 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Tresa - Ponte Tresa: 18.9151
+    ## Mean Absolute Error (MAE) for Location Tresa - Ponte Tresa: 151.8348
 
 ![](EPIMOS_files/figure-gfm/cars-32.png)<!-- -->
 
-    ## Warning: Removed 30 rows containing missing values or values outside the scale range
+    ## Warning: Removed 100 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Vecchio Vedeggio - Agno: 0.1935
+    ## Mean Absolute Error (MAE) for Location Vecchio Vedeggio - Agno: 0.9277
 
 ![](EPIMOS_files/figure-gfm/cars-33.png)<!-- -->
 
-    ## Warning: Removed 30 rows containing missing values or values outside the scale range
+    ## Warning: Removed 94 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Vedeggio - Agno: 1.7778
+    ## Mean Absolute Error (MAE) for Location Vedeggio - Agno: 3.6833
 
 ![](EPIMOS_files/figure-gfm/cars-34.png)<!-- -->
 
-    ## Warning: Removed 34 rows containing missing values or values outside the scale range
+    ## Warning: Removed 89 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Vedeggio - Isone: 0.4825
+    ## Mean Absolute Error (MAE) for Location Vedeggio - Isone: 2.4182
 
 ![](EPIMOS_files/figure-gfm/cars-35.png)<!-- -->
 
-    ## Warning: Removed 44 rows containing missing values or values outside the scale range
+    ## Warning: Removed 102 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Verzasca - Lavertezzo: 4.5733
+    ## Mean Absolute Error (MAE) for Location Verzasca - Lavertezzo: 122.538
 
 ![](EPIMOS_files/figure-gfm/cars-36.png)<!-- -->
 
-    ## Warning: Removed 38 rows containing missing values or values outside the scale range
+    ## Warning: Removed 99 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
 ![](EPIMOS_files/figure-gfm/cars-37.png)<!-- -->
@@ -1103,7 +1121,7 @@ imputation_duration <- imputation_end_time - imputation_start_time
 message("Imputation Phase Duration: ", imputation_duration, " seconds")
 ```
 
-    ## Imputation Phase Duration: 3.0781819820404 seconds
+    ## Imputation Phase Duration: 2.54222202301025 seconds
 
 ``` r
 # Display the assessment table
@@ -1111,56 +1129,56 @@ print(assessment_df)
 ```
 
     ##                            Location          MAE
-    ## 1          Bolletta - Porto Ceresio   6.99573157
-    ## 2                 Breggia - Chiasso   2.61530426
-    ## 3                  Brenno - Loderio   3.96545981
-    ## 4               Calancasca - Buseno   2.33526139
-    ## 5                Calcaccia - Airolo   0.11615536
-    ## 6        Canale Bonifica - Quartino   0.36556275
-    ## 7            Cassarate - Pregassona   1.06738087
-    ## 8                 Cuccio - Porlezza   1.23640571
-    ## 9                Faloppia - Chiasso   0.17684648
-    ## 10                Garegna Presa AET   0.13131368
-    ## 11             Laveggio - Mendrisio   0.19312219
-    ## 12        Laveggio - Riva S. Vitale   0.50405374
-    ## 13               Lisora - Monteggio   0.35738329
-    ## 14                Maggia - Bignasco   1.27143920
-    ## 15                  Maggia - Lodano   8.41232921
-    ## 16                 Maggia - Solduno   6.27967883
-    ## 17            Magliasina - Magliaso   1.27513722
-    ## 18                  Mara - Maroggia   0.54273817
-    ## 19                   Moesa - Lumino  72.74389318
-    ## 20             Morobbia - Giubiasco   7.14606118
-    ## 21                 Piumogna - Dalpe   0.89139962
-    ## 22     Riale Pincascia - Lavertezzo   3.02361498
-    ## 23         Riale di Gnosca - Gnosca   0.09500990
-    ## 24          Rovana - Briglia Secada   0.38084073
-    ## 25 Rovana - Galleria di derivazione   0.50288733
-    ## 26                   Salto - Maggia   0.07108591
-    ## 27              Scairolo - Barbengo   0.13009874
-    ## 28              Ticino - Bellinzona 154.64455465
-    ## 29                  Ticino - Piotta   2.09417529
-    ## 30                Ticino - Pollegio   9.05168864
-    ## 31          Ticino - Ronco Bedretto   0.55225151
-    ## 32                 Toce - Candoglia  24.64442700
-    ## 33              Tresa - Ponte Tresa  18.91508234
-    ## 34          Vecchio Vedeggio - Agno   0.19349091
-    ## 35                  Vedeggio - Agno   1.77779599
-    ## 36                 Vedeggio - Isone   0.48247005
-    ## 37            Verzasca - Lavertezzo   4.57325621
+    ## 1          Bolletta - Porto Ceresio   0.63642556
+    ## 2                 Breggia - Chiasso   0.77716932
+    ## 3                  Brenno - Loderio   4.72527264
+    ## 4               Calancasca - Buseno  21.90246290
+    ## 5                Calcaccia - Airolo   0.36517583
+    ## 6        Canale Bonifica - Quartino   1.71701838
+    ## 7            Cassarate - Pregassona   2.32882572
+    ## 8                 Cuccio - Porlezza   5.48947337
+    ## 9                Faloppia - Chiasso   0.23457758
+    ## 10                Garegna Presa AET   3.01918916
+    ## 11             Laveggio - Mendrisio   1.16186284
+    ## 12        Laveggio - Riva S. Vitale   0.46859515
+    ## 13               Lisora - Monteggio   1.35052370
+    ## 14                Maggia - Bignasco   1.28703790
+    ## 15                  Maggia - Lodano  69.72508082
+    ## 16                 Maggia - Solduno  86.82971288
+    ## 17            Magliasina - Magliaso   0.49025165
+    ## 18                  Mara - Maroggia   0.51834338
+    ## 19                   Moesa - Lumino  50.60441188
+    ## 20             Morobbia - Giubiasco  10.15477155
+    ## 21                 Piumogna - Dalpe   1.03244109
+    ## 22     Riale Pincascia - Lavertezzo  31.31659177
+    ## 23         Riale di Gnosca - Gnosca   0.43983390
+    ## 24          Rovana - Briglia Secada   1.85856298
+    ## 25 Rovana - Galleria di derivazione  28.07686536
+    ## 26                   Salto - Maggia   0.06724844
+    ## 27              Scairolo - Barbengo   0.44522330
+    ## 28              Ticino - Bellinzona 191.82658878
+    ## 29                  Ticino - Piotta   2.62204648
+    ## 30                Ticino - Pollegio  62.49627651
+    ## 31          Ticino - Ronco Bedretto   4.20996824
+    ## 32                 Toce - Candoglia 546.30237352
+    ## 33              Tresa - Ponte Tresa 151.83484141
+    ## 34          Vecchio Vedeggio - Agno   0.92765427
+    ## 35                  Vedeggio - Agno   3.68329086
+    ## 36                 Vedeggio - Isone   2.41822836
+    ## 37            Verzasca - Lavertezzo 122.53802366
 
 ``` r
 # Display total durations
 message("Total Training Time: ", training_duration, " seconds")
 ```
 
-    ## Total Training Time: 44.0181519985199 seconds
+    ## Total Training Time: 30.439838886261 seconds
 
 ``` r
 message("Total Imputation Time: ", imputation_duration, " seconds")
 ```
 
-    ## Total Imputation Time: 3.0781819820404 seconds
+    ## Total Imputation Time: 2.54222202301025 seconds
 
 ``` r
 assessment_df_gam = assessment_df
@@ -1601,7 +1619,7 @@ training_duration <- training_end_time - training_start_time
 message("Training Phase Duration: ", training_duration, " seconds")
 ```
 
-    ## Training Phase Duration: 49.4677290916443 seconds
+    ## Training Phase Duration: 30.919811964035 seconds
 
 ``` r
 # --- Imputation Phase ---
@@ -1633,6 +1651,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 2 in
     ## model.matrix: no columns are assigned
 
+    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
+    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
+
     ## Imputing missing data for column: Brenno - Loderio
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -1649,9 +1670,6 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 4 in
     ## model.matrix: no columns are assigned
 
-    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
-    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
-
     ## Imputing missing data for column: Calcaccia - Airolo
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -1659,9 +1677,6 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 5 in
     ## model.matrix: no columns are assigned
-
-    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
-    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Canale Bonifica - Quartino
 
@@ -1687,6 +1702,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 8 in
     ## model.matrix: no columns are assigned
 
+    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
+    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
+
     ## Imputing missing data for column: Faloppia - Chiasso
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -1711,9 +1729,6 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 11 in
     ## model.matrix: no columns are assigned
 
-    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
-    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
-
     ## Imputing missing data for column: Laveggio - Riva S. Vitale
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -1730,6 +1745,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 13 in
     ## model.matrix: no columns are assigned
 
+    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
+    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
+
     ## Imputing missing data for column: Maggia - Bignasco
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -1745,9 +1763,6 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 15 in
     ## model.matrix: no columns are assigned
-
-    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
-    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Maggia - Solduno
 
@@ -1784,6 +1799,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 19 in
     ## model.matrix: no columns are assigned
 
+    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
+    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
+
     ## Imputing missing data for column: Morobbia - Giubiasco
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -1792,6 +1810,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 20 in
     ## model.matrix: no columns are assigned
 
+    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
+    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
+
     ## Imputing missing data for column: Piumogna - Dalpe
 
     ## Warning in model.matrix.default(mt, mf, contrasts): the response appeared on
@@ -1799,6 +1820,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 21 in
     ## model.matrix: no columns are assigned
+
+    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
+    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Riale Pincascia - Lavertezzo
 
@@ -1815,6 +1839,9 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 23 in
     ## model.matrix: no columns are assigned
+
+    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
+    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Rovana - Briglia Secada
 
@@ -1842,9 +1869,6 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 26 in
     ## model.matrix: no columns are assigned
-
-    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
-    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Scairolo - Barbengo
 
@@ -1888,9 +1912,6 @@ dta_imputed <- impute_missing_data(dta_masked, method = "lm", glm_family = gauss
 
     ## Warning in model.matrix.default(mt, mf, contrasts): problem with term 31 in
     ## model.matrix: no columns are assigned
-
-    ## Warning in predict.lm(model, newdata = data_frame[mss, ]): prediction from
-    ## rank-deficient fit; attr(*, "non-estim") has doubtful cases
 
     ## Imputing missing data for column: Toce - Candoglia
 
@@ -1987,261 +2008,261 @@ for (i in seq_len(nl)) {
 }
 ```
 
-    ## Mean Absolute Error (MAE) for Location Bolletta - Porto Ceresio: 6.9957
+    ## Mean Absolute Error (MAE) for Location Bolletta - Porto Ceresio: 0.6364
 
-    ## Warning: Removed 70 rows containing missing values or values outside the scale range
+    ## Warning: Removed 68 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Breggia - Chiasso: 2.6153
+    ## Mean Absolute Error (MAE) for Location Breggia - Chiasso: 0.7772
 
 ![](EPIMOS_files/figure-gfm/lm-1.png)<!-- -->
 
-    ## Warning: Removed 136 rows containing missing values or values outside the scale range
+    ## Warning: Removed 129 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Brenno - Loderio: 3.9655
+    ## Mean Absolute Error (MAE) for Location Brenno - Loderio: 4.7253
 
 ![](EPIMOS_files/figure-gfm/lm-2.png)<!-- -->
 
-    ## Warning: Removed 59 rows containing missing values or values outside the scale range
+    ## Warning: Removed 71 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Calancasca - Buseno: 2.3353
+    ## Mean Absolute Error (MAE) for Location Calancasca - Buseno: 21.9025
 
 ![](EPIMOS_files/figure-gfm/lm-3.png)<!-- -->
 
-    ## Warning: Removed 80 rows containing missing values or values outside the scale range
+    ## Warning: Removed 242 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Calcaccia - Airolo: 0.1162
+    ## Mean Absolute Error (MAE) for Location Calcaccia - Airolo: 0.3652
 
 ![](EPIMOS_files/figure-gfm/lm-4.png)<!-- -->
 
-    ## Warning: Removed 39 rows containing missing values or values outside the scale range
+    ## Warning: Removed 113 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Canale Bonifica - Quartino: 0.3656
+    ## Mean Absolute Error (MAE) for Location Canale Bonifica - Quartino: 1.717
 
 ![](EPIMOS_files/figure-gfm/lm-5.png)<!-- -->
-
-    ## Warning: Removed 43 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Cassarate - Pregassona: 1.0674
-
-![](EPIMOS_files/figure-gfm/lm-6.png)<!-- -->
-
-    ## Warning: Removed 34 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Cuccio - Porlezza: 1.2364
-
-![](EPIMOS_files/figure-gfm/lm-7.png)<!-- -->
-
-    ## Warning: Removed 45 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Faloppia - Chiasso: 0.1768
-
-![](EPIMOS_files/figure-gfm/lm-8.png)<!-- -->
-
-    ## Warning: Removed 34 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Garegna Presa AET: 0.1313
-
-![](EPIMOS_files/figure-gfm/lm-9.png)<!-- -->
-
-    ## Warning: Removed 114 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Laveggio - Mendrisio: 0.1931
-
-![](EPIMOS_files/figure-gfm/lm-10.png)<!-- -->
-
-    ## Warning: Removed 34 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Laveggio - Riva S. Vitale: 0.5041
-
-![](EPIMOS_files/figure-gfm/lm-11.png)<!-- -->
-
-    ## Warning: Removed 49 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Lisora - Monteggio: 0.3574
-
-![](EPIMOS_files/figure-gfm/lm-12.png)<!-- -->
-
-    ## Warning: Removed 41 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Maggia - Bignasco: 1.2714
-
-![](EPIMOS_files/figure-gfm/lm-13.png)<!-- -->
-
-    ## Warning: Removed 32 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Maggia - Lodano: 8.4123
-
-![](EPIMOS_files/figure-gfm/lm-14.png)<!-- -->
-
-    ## Warning: Removed 241 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Maggia - Solduno: 6.2797
-
-![](EPIMOS_files/figure-gfm/lm-15.png)<!-- -->
-
-    ## Warning: Removed 32 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Magliasina - Magliaso: 1.2751
-
-![](EPIMOS_files/figure-gfm/lm-16.png)<!-- -->
-
-    ## Warning: Removed 54 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Mara - Maroggia: 0.5427
-
-![](EPIMOS_files/figure-gfm/lm-17.png)<!-- -->
-
-    ## Warning: Removed 32 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Moesa - Lumino: 72.7439
-
-![](EPIMOS_files/figure-gfm/lm-18.png)<!-- -->
-
-    ## Warning: Removed 64 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Morobbia - Giubiasco: 7.1461
-
-![](EPIMOS_files/figure-gfm/lm-19.png)<!-- -->
-
-    ## Warning: Removed 47 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Piumogna - Dalpe: 0.8914
-
-![](EPIMOS_files/figure-gfm/lm-20.png)<!-- -->
-
-    ## Warning: Removed 40 rows containing missing values or values outside the scale range
-    ## (`geom_point()`).
-
-    ## Mean Absolute Error (MAE) for Location Riale Pincascia - Lavertezzo: 3.0236
-
-![](EPIMOS_files/figure-gfm/lm-21.png)<!-- -->
 
     ## Warning: Removed 77 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Riale di Gnosca - Gnosca: 0.095
+    ## Mean Absolute Error (MAE) for Location Cassarate - Pregassona: 2.3288
 
-![](EPIMOS_files/figure-gfm/lm-22.png)<!-- -->
+![](EPIMOS_files/figure-gfm/lm-6.png)<!-- -->
 
-    ## Warning: Removed 41 rows containing missing values or values outside the scale range
+    ## Warning: Removed 99 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Rovana - Briglia Secada: 0.3808
+    ## Mean Absolute Error (MAE) for Location Cuccio - Porlezza: 5.4895
 
-![](EPIMOS_files/figure-gfm/lm-23.png)<!-- -->
+![](EPIMOS_files/figure-gfm/lm-7.png)<!-- -->
 
-    ## Warning: Removed 34 rows containing missing values or values outside the scale range
+    ## Warning: Removed 122 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Rovana - Galleria di derivazione: 0.5029
+    ## Mean Absolute Error (MAE) for Location Faloppia - Chiasso: 0.2346
 
-![](EPIMOS_files/figure-gfm/lm-24.png)<!-- -->
+![](EPIMOS_files/figure-gfm/lm-8.png)<!-- -->
 
-    ## Warning: Removed 60 rows containing missing values or values outside the scale range
+    ## Warning: Removed 63 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Salto - Maggia: 0.0711
+    ## Mean Absolute Error (MAE) for Location Garegna Presa AET: 3.0192
 
-![](EPIMOS_files/figure-gfm/lm-25.png)<!-- -->
+![](EPIMOS_files/figure-gfm/lm-9.png)<!-- -->
+
+    ## Warning: Removed 171 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Laveggio - Mendrisio: 1.1619
+
+![](EPIMOS_files/figure-gfm/lm-10.png)<!-- -->
+
+    ## Warning: Removed 102 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Laveggio - Riva S. Vitale: 0.4686
+
+![](EPIMOS_files/figure-gfm/lm-11.png)<!-- -->
+
+    ## Warning: Removed 55 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Lisora - Monteggio: 1.3505
+
+![](EPIMOS_files/figure-gfm/lm-12.png)<!-- -->
+
+    ## Warning: Removed 85 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Maggia - Bignasco: 1.287
+
+![](EPIMOS_files/figure-gfm/lm-13.png)<!-- -->
+
+    ## Warning: Removed 47 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Maggia - Lodano: 69.7251
+
+![](EPIMOS_files/figure-gfm/lm-14.png)<!-- -->
+
+    ## Warning: Removed 844 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Maggia - Solduno: 86.8297
+
+![](EPIMOS_files/figure-gfm/lm-15.png)<!-- -->
+
+    ## Warning: Removed 102 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Magliasina - Magliaso: 0.4903
+
+![](EPIMOS_files/figure-gfm/lm-16.png)<!-- -->
+
+    ## Warning: Removed 48 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Mara - Maroggia: 0.5183
+
+![](EPIMOS_files/figure-gfm/lm-17.png)<!-- -->
 
     ## Warning: Removed 74 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Scairolo - Barbengo: 0.1301
+    ## Mean Absolute Error (MAE) for Location Moesa - Lumino: 50.6044
+
+![](EPIMOS_files/figure-gfm/lm-18.png)<!-- -->
+
+    ## Warning: Removed 111 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Morobbia - Giubiasco: 10.1548
+
+![](EPIMOS_files/figure-gfm/lm-19.png)<!-- -->
+
+    ## Warning: Removed 99 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Piumogna - Dalpe: 1.0324
+
+![](EPIMOS_files/figure-gfm/lm-20.png)<!-- -->
+
+    ## Warning: Removed 86 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Riale Pincascia - Lavertezzo: 31.3166
+
+![](EPIMOS_files/figure-gfm/lm-21.png)<!-- -->
+
+    ## Warning: Removed 122 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Riale di Gnosca - Gnosca: 0.4398
+
+![](EPIMOS_files/figure-gfm/lm-22.png)<!-- -->
+
+    ## Warning: Removed 91 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Rovana - Briglia Secada: 1.8586
+
+![](EPIMOS_files/figure-gfm/lm-23.png)<!-- -->
+
+    ## Warning: Removed 113 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Rovana - Galleria di derivazione: 28.0769
+
+![](EPIMOS_files/figure-gfm/lm-24.png)<!-- -->
+
+    ## Warning: Removed 157 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Salto - Maggia: 0.0672
+
+![](EPIMOS_files/figure-gfm/lm-25.png)<!-- -->
+
+    ## Warning: Removed 130 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Mean Absolute Error (MAE) for Location Scairolo - Barbengo: 0.4452
 
 ![](EPIMOS_files/figure-gfm/lm-26.png)<!-- -->
 
-    ## Warning: Removed 33 rows containing missing values or values outside the scale range
+    ## Warning: Removed 88 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Ticino - Bellinzona: 154.6446
+    ## Mean Absolute Error (MAE) for Location Ticino - Bellinzona: 191.8266
 
 ![](EPIMOS_files/figure-gfm/lm-27.png)<!-- -->
 
-    ## Warning: Removed 46 rows containing missing values or values outside the scale range
+    ## Warning: Removed 97 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Ticino - Piotta: 2.0942
+    ## Mean Absolute Error (MAE) for Location Ticino - Piotta: 2.622
 
 ![](EPIMOS_files/figure-gfm/lm-28.png)<!-- -->
 
-    ## Warning: Removed 42 rows containing missing values or values outside the scale range
+    ## Warning: Removed 62 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Ticino - Pollegio: 9.0517
+    ## Mean Absolute Error (MAE) for Location Ticino - Pollegio: 62.4963
 
 ![](EPIMOS_files/figure-gfm/lm-29.png)<!-- -->
 
-    ## Warning: Removed 61 rows containing missing values or values outside the scale range
+    ## Warning: Removed 98 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Ticino - Ronco Bedretto: 0.5523
+    ## Mean Absolute Error (MAE) for Location Ticino - Ronco Bedretto: 4.21
 
 ![](EPIMOS_files/figure-gfm/lm-30.png)<!-- -->
 
-    ## Warning: Removed 34 rows containing missing values or values outside the scale range
+    ## Warning: Removed 117 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Toce - Candoglia: 24.6444
+    ## Mean Absolute Error (MAE) for Location Toce - Candoglia: 546.3024
 
 ![](EPIMOS_files/figure-gfm/lm-31.png)<!-- -->
 
-    ## Warning: Removed 35 rows containing missing values or values outside the scale range
+    ## Warning: Removed 119 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Tresa - Ponte Tresa: 18.9151
+    ## Mean Absolute Error (MAE) for Location Tresa - Ponte Tresa: 151.8348
 
 ![](EPIMOS_files/figure-gfm/lm-32.png)<!-- -->
 
-    ## Warning: Removed 30 rows containing missing values or values outside the scale range
+    ## Warning: Removed 100 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Vecchio Vedeggio - Agno: 0.1935
+    ## Mean Absolute Error (MAE) for Location Vecchio Vedeggio - Agno: 0.9277
 
 ![](EPIMOS_files/figure-gfm/lm-33.png)<!-- -->
 
-    ## Warning: Removed 30 rows containing missing values or values outside the scale range
+    ## Warning: Removed 94 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Vedeggio - Agno: 1.7778
+    ## Mean Absolute Error (MAE) for Location Vedeggio - Agno: 3.6833
 
 ![](EPIMOS_files/figure-gfm/lm-34.png)<!-- -->
 
-    ## Warning: Removed 34 rows containing missing values or values outside the scale range
+    ## Warning: Removed 89 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Vedeggio - Isone: 0.4825
+    ## Mean Absolute Error (MAE) for Location Vedeggio - Isone: 2.4182
 
 ![](EPIMOS_files/figure-gfm/lm-35.png)<!-- -->
 
-    ## Warning: Removed 44 rows containing missing values or values outside the scale range
+    ## Warning: Removed 102 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-    ## Mean Absolute Error (MAE) for Location Verzasca - Lavertezzo: 4.5733
+    ## Mean Absolute Error (MAE) for Location Verzasca - Lavertezzo: 122.538
 
 ![](EPIMOS_files/figure-gfm/lm-36.png)<!-- -->
 
-    ## Warning: Removed 38 rows containing missing values or values outside the scale range
+    ## Warning: Removed 99 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
 ![](EPIMOS_files/figure-gfm/lm-37.png)<!-- -->
@@ -2255,7 +2276,7 @@ imputation_duration <- imputation_end_time - imputation_start_time
 message("Imputation Phase Duration: ", imputation_duration, " seconds")
 ```
 
-    ## Imputation Phase Duration: 2.37141799926758 seconds
+    ## Imputation Phase Duration: 2.45923590660095 seconds
 
 ``` r
 # Display the assessment table
@@ -2263,96 +2284,96 @@ print(assessment_df)
 ```
 
     ##                            Location          MAE
-    ## 1          Bolletta - Porto Ceresio   6.99573157
-    ## 2                 Breggia - Chiasso   2.61530426
-    ## 3                  Brenno - Loderio   3.96545981
-    ## 4               Calancasca - Buseno   2.33526139
-    ## 5                Calcaccia - Airolo   0.11615536
-    ## 6        Canale Bonifica - Quartino   0.36556275
-    ## 7            Cassarate - Pregassona   1.06738087
-    ## 8                 Cuccio - Porlezza   1.23640571
-    ## 9                Faloppia - Chiasso   0.17684648
-    ## 10                Garegna Presa AET   0.13131368
-    ## 11             Laveggio - Mendrisio   0.19312219
-    ## 12        Laveggio - Riva S. Vitale   0.50405374
-    ## 13               Lisora - Monteggio   0.35738329
-    ## 14                Maggia - Bignasco   1.27143920
-    ## 15                  Maggia - Lodano   8.41232921
-    ## 16                 Maggia - Solduno   6.27967883
-    ## 17            Magliasina - Magliaso   1.27513722
-    ## 18                  Mara - Maroggia   0.54273817
-    ## 19                   Moesa - Lumino  72.74389318
-    ## 20             Morobbia - Giubiasco   7.14606118
-    ## 21                 Piumogna - Dalpe   0.89139962
-    ## 22     Riale Pincascia - Lavertezzo   3.02361498
-    ## 23         Riale di Gnosca - Gnosca   0.09500990
-    ## 24          Rovana - Briglia Secada   0.38084073
-    ## 25 Rovana - Galleria di derivazione   0.50288733
-    ## 26                   Salto - Maggia   0.07108591
-    ## 27              Scairolo - Barbengo   0.13009874
-    ## 28              Ticino - Bellinzona 154.64455465
-    ## 29                  Ticino - Piotta   2.09417529
-    ## 30                Ticino - Pollegio   9.05168864
-    ## 31          Ticino - Ronco Bedretto   0.55225151
-    ## 32                 Toce - Candoglia  24.64442700
-    ## 33              Tresa - Ponte Tresa  18.91508234
-    ## 34          Vecchio Vedeggio - Agno   0.19349091
-    ## 35                  Vedeggio - Agno   1.77779599
-    ## 36                 Vedeggio - Isone   0.48247005
-    ## 37            Verzasca - Lavertezzo   4.57325621
+    ## 1          Bolletta - Porto Ceresio   0.63642556
+    ## 2                 Breggia - Chiasso   0.77716932
+    ## 3                  Brenno - Loderio   4.72527264
+    ## 4               Calancasca - Buseno  21.90246290
+    ## 5                Calcaccia - Airolo   0.36517583
+    ## 6        Canale Bonifica - Quartino   1.71701838
+    ## 7            Cassarate - Pregassona   2.32882572
+    ## 8                 Cuccio - Porlezza   5.48947337
+    ## 9                Faloppia - Chiasso   0.23457758
+    ## 10                Garegna Presa AET   3.01918916
+    ## 11             Laveggio - Mendrisio   1.16186284
+    ## 12        Laveggio - Riva S. Vitale   0.46859515
+    ## 13               Lisora - Monteggio   1.35052370
+    ## 14                Maggia - Bignasco   1.28703790
+    ## 15                  Maggia - Lodano  69.72508082
+    ## 16                 Maggia - Solduno  86.82971288
+    ## 17            Magliasina - Magliaso   0.49025165
+    ## 18                  Mara - Maroggia   0.51834338
+    ## 19                   Moesa - Lumino  50.60441188
+    ## 20             Morobbia - Giubiasco  10.15477155
+    ## 21                 Piumogna - Dalpe   1.03244109
+    ## 22     Riale Pincascia - Lavertezzo  31.31659177
+    ## 23         Riale di Gnosca - Gnosca   0.43983390
+    ## 24          Rovana - Briglia Secada   1.85856298
+    ## 25 Rovana - Galleria di derivazione  28.07686536
+    ## 26                   Salto - Maggia   0.06724844
+    ## 27              Scairolo - Barbengo   0.44522330
+    ## 28              Ticino - Bellinzona 191.82658878
+    ## 29                  Ticino - Piotta   2.62204648
+    ## 30                Ticino - Pollegio  62.49627651
+    ## 31          Ticino - Ronco Bedretto   4.20996824
+    ## 32                 Toce - Candoglia 546.30237352
+    ## 33              Tresa - Ponte Tresa 151.83484141
+    ## 34          Vecchio Vedeggio - Agno   0.92765427
+    ## 35                  Vedeggio - Agno   3.68329086
+    ## 36                 Vedeggio - Isone   2.41822836
+    ## 37            Verzasca - Lavertezzo 122.53802366
 
 ``` r
 # Display total durations
 message("Total Training Time: ", training_duration, " seconds")
 ```
 
-    ## Total Training Time: 49.4677290916443 seconds
+    ## Total Training Time: 30.919811964035 seconds
 
 ``` r
 message("Total Imputation Time: ", imputation_duration, " seconds")
 ```
 
-    ## Total Imputation Time: 2.37141799926758 seconds
+    ## Total Imputation Time: 2.45923590660095 seconds
 
 ``` r
 print(assessment_df_gam)
 ```
 
     ##                            Location          MAE
-    ## 1          Bolletta - Porto Ceresio   6.99573157
-    ## 2                 Breggia - Chiasso   2.61530426
-    ## 3                  Brenno - Loderio   3.96545981
-    ## 4               Calancasca - Buseno   2.33526139
-    ## 5                Calcaccia - Airolo   0.11615536
-    ## 6        Canale Bonifica - Quartino   0.36556275
-    ## 7            Cassarate - Pregassona   1.06738087
-    ## 8                 Cuccio - Porlezza   1.23640571
-    ## 9                Faloppia - Chiasso   0.17684648
-    ## 10                Garegna Presa AET   0.13131368
-    ## 11             Laveggio - Mendrisio   0.19312219
-    ## 12        Laveggio - Riva S. Vitale   0.50405374
-    ## 13               Lisora - Monteggio   0.35738329
-    ## 14                Maggia - Bignasco   1.27143920
-    ## 15                  Maggia - Lodano   8.41232921
-    ## 16                 Maggia - Solduno   6.27967883
-    ## 17            Magliasina - Magliaso   1.27513722
-    ## 18                  Mara - Maroggia   0.54273817
-    ## 19                   Moesa - Lumino  72.74389318
-    ## 20             Morobbia - Giubiasco   7.14606118
-    ## 21                 Piumogna - Dalpe   0.89139962
-    ## 22     Riale Pincascia - Lavertezzo   3.02361498
-    ## 23         Riale di Gnosca - Gnosca   0.09500990
-    ## 24          Rovana - Briglia Secada   0.38084073
-    ## 25 Rovana - Galleria di derivazione   0.50288733
-    ## 26                   Salto - Maggia   0.07108591
-    ## 27              Scairolo - Barbengo   0.13009874
-    ## 28              Ticino - Bellinzona 154.64455465
-    ## 29                  Ticino - Piotta   2.09417529
-    ## 30                Ticino - Pollegio   9.05168864
-    ## 31          Ticino - Ronco Bedretto   0.55225151
-    ## 32                 Toce - Candoglia  24.64442700
-    ## 33              Tresa - Ponte Tresa  18.91508234
-    ## 34          Vecchio Vedeggio - Agno   0.19349091
-    ## 35                  Vedeggio - Agno   1.77779599
-    ## 36                 Vedeggio - Isone   0.48247005
-    ## 37            Verzasca - Lavertezzo   4.57325621
+    ## 1          Bolletta - Porto Ceresio   0.63642556
+    ## 2                 Breggia - Chiasso   0.77716932
+    ## 3                  Brenno - Loderio   4.72527264
+    ## 4               Calancasca - Buseno  21.90246290
+    ## 5                Calcaccia - Airolo   0.36517583
+    ## 6        Canale Bonifica - Quartino   1.71701838
+    ## 7            Cassarate - Pregassona   2.32882572
+    ## 8                 Cuccio - Porlezza   5.48947337
+    ## 9                Faloppia - Chiasso   0.23457758
+    ## 10                Garegna Presa AET   3.01918916
+    ## 11             Laveggio - Mendrisio   1.16186284
+    ## 12        Laveggio - Riva S. Vitale   0.46859515
+    ## 13               Lisora - Monteggio   1.35052370
+    ## 14                Maggia - Bignasco   1.28703790
+    ## 15                  Maggia - Lodano  69.72508082
+    ## 16                 Maggia - Solduno  86.82971288
+    ## 17            Magliasina - Magliaso   0.49025165
+    ## 18                  Mara - Maroggia   0.51834338
+    ## 19                   Moesa - Lumino  50.60441188
+    ## 20             Morobbia - Giubiasco  10.15477155
+    ## 21                 Piumogna - Dalpe   1.03244109
+    ## 22     Riale Pincascia - Lavertezzo  31.31659177
+    ## 23         Riale di Gnosca - Gnosca   0.43983390
+    ## 24          Rovana - Briglia Secada   1.85856298
+    ## 25 Rovana - Galleria di derivazione  28.07686536
+    ## 26                   Salto - Maggia   0.06724844
+    ## 27              Scairolo - Barbengo   0.44522330
+    ## 28              Ticino - Bellinzona 191.82658878
+    ## 29                  Ticino - Piotta   2.62204648
+    ## 30                Ticino - Pollegio  62.49627651
+    ## 31          Ticino - Ronco Bedretto   4.20996824
+    ## 32                 Toce - Candoglia 546.30237352
+    ## 33              Tresa - Ponte Tresa 151.83484141
+    ## 34          Vecchio Vedeggio - Agno   0.92765427
+    ## 35                  Vedeggio - Agno   3.68329086
+    ## 36                 Vedeggio - Isone   2.41822836
+    ## 37            Verzasca - Lavertezzo 122.53802366
